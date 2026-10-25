@@ -1,20 +1,19 @@
 # ScamSaathi — Testing Strategy & Quality Assurance
-**Team:** CTRL+FREAKS  
-**Test Suite:** Pytest
+**Team:** Ctrl+Freaks | **Framework:** Pytest
 
 ---
 
-## 1. Overview of Test Coverage
+## 1. Test Suite Coverage
 
 The automated test suite covers the complete application stack:
 
 | Test Module | Focus Area | Status |
 | :--- | :--- | :--- |
-| `test_message_analyzer.py` | Psychological tactics, urgency, fear, authority, credential harvesting, APK detection, Hindi & English vocabulary, benign false-positive prevention, score capping | ✅ 100% Passed |
-| `test_url_analyzer.py` | IP address hosts, URL shortening, brand lookalikes, direct APK downloads, legitimate bank domains, bilingual outputs | ✅ 100% Passed |
-| `test_scam_dna.py` | PII sanitization (phone, email, OTP, URLs), 8-axis radar vector generation, 3 counter-rules | ✅ 100% Passed |
-| `test_api_endpoints.py` | FastAPI REST endpoints: health, message analyzer, SafeLink, HoneyShield scenarios, trusted contacts CRUD, SOS preview, privacy clear | ✅ 100% Passed |
-| `test_frontend_static.py` | SPA shell index.html, custom CSS styles, ES module JavaScript routing, bilingual translation dictionaries | ✅ 100% Passed |
+| `test_message_analyzer.py` | Psychological tactics, urgency, fear, authority, credential harvesting, APK detection, Hindi & English vocabulary, benign false-positive prevention, score capping | ✅ Passed |
+| `test_url_analyzer.py` | IP address hosts, URL shortening, brand lookalikes, direct APK downloads, legitimate bank domains, bilingual outputs | ✅ Passed |
+| `test_scam_dna.py` | PII sanitization (phone, email, OTP, URLs), 8-axis radar vector generation, 3 counter-rules | ✅ Passed |
+| `test_api_endpoints.py` | FastAPI REST endpoints: health, message analyzer, SafeLink, HoneyShield scenarios, trusted contacts CRUD, SOS preview, privacy clear | ✅ Passed |
+| `test_frontend_static.py` | SPA shell index.html, custom CSS styles, ES module JavaScript routing, bilingual translation dictionaries | ✅ Passed |
 
 ---
 
@@ -35,7 +34,7 @@ python -m pytest backend/tests/test_message_analyzer.py -v
 
 ---
 
-## 3. Synthetic Test Cases (Suspicious vs Benign)
+## 3. Test Cases (Malicious vs Benign)
 
 To prevent false positives, the test suite verifies both malicious and benign inputs:
 
@@ -60,7 +59,7 @@ To prevent false positives, the test suite verifies both malicious and benign in
    `"आपका बैंक खाता तुरंत ब्लॉक कर दिया जाएगा। 10 मिनट में अपना ओटीपी बताएं।"`
    - *Expected:* Score >= 40, Hindi language explanations.
 
-### Benign Test Samples (False-Positive Prevention):
+### Benign Test Samples:
 1. **Library Meeting Reminder:**
    `"Good morning! Just a reminder that our group project meeting is tomorrow at 4 PM in the library. See you there."`
    - *Expected:* Score <= 20, `risk_level == "LOW"`, `pause_intervention == False`.
