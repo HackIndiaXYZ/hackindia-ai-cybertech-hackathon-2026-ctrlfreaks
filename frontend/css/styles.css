@@ -1,0 +1,112 @@
+/* ScamSaathi Cybersecurity Theme Styles */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --bg-primary: #0B1220;
+  --bg-surface: #111C2E;
+  --bg-card: #162438;
+  --border-card: #1E314B;
+  --accent-emerald: #10B981;
+  --accent-teal: #2DD4BF;
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --warning-amber: #F59E0B;
+  --alert-red: #F87171;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0B1220;
+}
+::-webkit-scrollbar-thumb {
+  background: #1E314B;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2DD4BF;
+}
+
+/* Cyber card styles */
+.cyber-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 1rem;
+  transition: all 0.25s ease-in-out;
+}
+
+.cyber-card:hover {
+  border-color: rgba(45, 212, 191, 0.4);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.cyber-card-active {
+  border-color: var(--accent-emerald) !important;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.15) !important;
+}
+
+/* Radar & SVG Visualization */
+.radar-grid {
+  stroke: #1E314B;
+  stroke-width: 1;
+}
+.radar-axis {
+  stroke: #1E314B;
+  stroke-width: 1;
+  stroke-dasharray: 2 2;
+}
+.radar-area {
+  fill: rgba(16, 185, 129, 0.25);
+  stroke: #10B981;
+  stroke-width: 2.5;
+  transition: all 0.5s ease-out;
+}
+.radar-area-danger {
+  fill: rgba(248, 113, 113, 0.3);
+  stroke: #F87171;
+  stroke-width: 2.5;
+}
+
+/* Pulse animation */
+@keyframes pulse-emerald {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.08);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-emerald 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Focus styles for accessibility */
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--accent-teal);
+  outline-offset: 2px;
+}
+
+/* Mono Code / Sample text */
+.font-mono-code {
+  font-family: 'JetBrains Mono', monospace;
+}

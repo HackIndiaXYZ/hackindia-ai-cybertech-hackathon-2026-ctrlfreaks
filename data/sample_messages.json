@@ -1,0 +1,65 @@
+[
+  {
+    "id": "sample_kyc",
+    "title": "Fake Bank KYC Suspension",
+    "category": "Banking",
+    "language": "en",
+    "text": "URGENT: Your SBI account has been suspended due to incomplete KYC verification. Please click https://sbi-verification-update.xyz/login immediately to verify PAN card within 2 hours or your account will be permanently blocked."
+  },
+  {
+    "id": "sample_electricity",
+    "title": "Electricity Disconnection Threat",
+    "category": "Utility",
+    "language": "en",
+    "text": "Dear Consumer, your electricity power connection will be disconnected tonight at 9:30 PM from the power office because your previous month bill was not updated. Please contact our Electricity Officer immediately at 98765-43210."
+  },
+  {
+    "id": "sample_police_digital_arrest",
+    "title": "Police Authority & Digital Arrest",
+    "category": "Extortion",
+    "language": "en",
+    "text": "This is Officer Sharma from Delhi Police Cyber Crime Branch. A package with illegal contraband in your name was intercepted by Customs. An arrest warrant has been issued. Stay on this line, keep this investigation confidential, and transfer Rs 50,000 to the government escrow account for verification."
+  },
+  {
+    "id": "sample_apk_refund",
+    "title": "Suspicious APK Refund Request",
+    "category": "Malware",
+    "language": "en",
+    "text": "Your transaction of Rs 1,499 failed. To receive immediate refund, please install and open our refund verification app: http://instant-refund.online/support.apk. Allow all permissions to process the transfer."
+  },
+  {
+    "id": "sample_lottery_kbc",
+    "title": "WhatsApp Lottery Winner",
+    "category": "Lottery",
+    "language": "en",
+    "text": "Congratulations! Your mobile number has won Rs 25,00,000 in the WhatsApp Lucky Draw Contest. To claim your reward, pay the refundable processing fee of Rs 2,500 to our manager immediately."
+  },
+  {
+    "id": "sample_benign_appointment",
+    "title": "Benign Clinic Appointment Reminder",
+    "category": "Legitimate",
+    "language": "en",
+    "text": "Hello, your dental check-up appointment is confirmed for tomorrow at 11:00 AM at Metro Dental Care. If you need to reschedule or have questions, please call our clinic front desk at 011-23456789."
+  },
+  {
+    "id": "sample_hindi_electricity",
+    "title": "बिजली बिल भुगतान धमकी (हिंदी)",
+    "category": "Utility",
+    "language": "hi",
+    "text": "प्रिय उपभोक्ता, आज रात 9:30 बजे आपकी बिजली काट दी जाएगी क्योंकि आपका पिछले महीने का बिल अपडेट नहीं हुआ है। तुरंत हमारे बिजली अधिकारी से संपर्क करें और खाता बंद होने से बचाएं।"
+  },
+  {
+    "id": "sample_hindi_kyc",
+    "title": "बैंक खाता ब्लॉक और ओटीपी मांग (हिंदी)",
+    "category": "Banking",
+    "language": "hi",
+    "text": "आपका बैंक खाता 10 मिनट में ब्लॉक कर दिया जाएगा। खाता चालू रखने के लिए तुरंत अपना यूपीआई पिन दर्ज करें या प्राप्त हुआ ओटीपी साझा करें।"
+  },
+  {
+    "id": "sample_hindi_benign",
+    "title": "अस्पताल परामर्श सूचना (वैध)",
+    "category": "Legitimate",
+    "language": "hi",
+    "text": "नमस्ते, डॉ. वर्मा के साथ आपका परामर्श कल दोपहर 2:00 बजे निर्धारित है। कृपया समय पर अस्पताल की रिसेप्शन डेस्क पर रिपोर्ट करें। धन्यवाद।"
+  }
+]
