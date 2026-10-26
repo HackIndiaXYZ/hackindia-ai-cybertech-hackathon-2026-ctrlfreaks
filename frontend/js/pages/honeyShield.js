@@ -14,52 +14,60 @@ export async function renderHoneyShield(container) {
 
   container.innerHTML = `
     <div class="flex flex-col gap-6 pb-12 animate-fade-in max-w-5xl mx-auto">
-      <!-- Header -->
+      <!-- Section Header -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+        <div class="flex flex-col gap-1">
+          <div class="flex items-center gap-2">
+            <span class="badge-subtle badge-neutral">TRAINING SIMULATOR</span>
+          </div>
+          <h1 class="text-xl sm:text-2xl font-bold text-white tracking-tight">
             ${t("honey_title")}
           </h1>
-          <p class="text-slate-400 text-sm">
+          <p class="text-slate-400 text-xs">
             ${t("honey_sub")}
           </p>
         </div>
-        <button id="honey-reset-btn" class="self-start sm:self-auto px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white bg-[#111C2E] hover:bg-[#1E314B] border border-slate-700 transition-colors">
-          ↺ ${t("honey_btn_reset")}
+        <button id="honey-reset-btn" class="self-start sm:self-auto px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white bg-[#10182B] hover:bg-[#16233B] border border-[rgba(255,255,255,0.08)] transition-colors flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+          </svg>
+          <span>${t("honey_btn_reset")}</span>
         </button>
       </div>
 
-      <!-- Score & Progress Banner -->
-      <div class="cyber-card p-5 grid grid-cols-1 sm:grid-cols-2 gap-4 border-purple-500/30 bg-purple-950/10">
+      <!-- Score & Telemetry Banner -->
+      <div class="cyber-card p-5 grid grid-cols-1 sm:grid-cols-2 gap-4 bg-[#0D1527] border-[rgba(255,255,255,0.08)]">
         <div class="flex items-center gap-3">
-          <div class="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-300 flex items-center justify-center font-extrabold text-lg flex-shrink-0">
-            🛡️
+          <div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
           </div>
           <div>
-            <span class="text-xs text-slate-400 font-semibold">${t("honey_completed_label")}</span>
-            <div class="text-2xl font-extrabold text-white">
-              <span id="honey-completed-count">${store.honeyShieldProgress.completedIds.length}</span> <span class="text-sm text-slate-500 font-normal">/ 6</span>
+            <span class="text-[11px] text-slate-400 font-medium">${t("honey_completed_label")}</span>
+            <div class="text-xl font-bold text-white font-mono-code">
+              <span id="honey-completed-count">${store.honeyShieldProgress.completedIds.length}</span> <span class="text-xs text-slate-500 font-normal">/ 6 modules</span>
             </div>
           </div>
         </div>
 
-        <div class="flex items-center justify-between sm:justify-end gap-6 sm:border-l sm:border-slate-800 sm:pl-6">
+        <div class="flex items-center justify-between sm:justify-end gap-6 sm:border-l sm:border-[rgba(255,255,255,0.08)] sm:pl-6">
           <div class="flex flex-col sm:items-end">
-            <span class="text-xs text-slate-400 font-semibold">${t("honey_score_label")}</span>
-            <div class="text-2xl font-extrabold text-emerald-400">
-              <span id="honey-score-value">${store.honeyShieldProgress.score}</span><span class="text-sm text-slate-500 font-normal">/100</span>
+            <span class="text-[11px] text-slate-400 font-medium">${t("honey_score_label")}</span>
+            <div class="text-xl font-bold text-emerald-400 font-mono-code">
+              <span id="honey-score-value">${store.honeyShieldProgress.score}</span><span class="text-xs text-slate-500 font-normal"> / 100</span>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Scenario Selector Navigation Tabs -->
-      <div id="honey-tabs-container" class="flex items-center gap-2 overflow-x-auto pb-2">
-        <div class="text-xs text-slate-400 py-2">Loading scenarios...</div>
+      <div id="honey-tabs-container" class="flex items-center gap-2 overflow-x-auto pb-1">
+        <div class="text-xs text-slate-400 py-2">Loading simulation scenarios...</div>
       </div>
 
       <!-- Active Scenario Container -->
-      <div id="honey-active-scenario-card" class="cyber-card p-6 sm:p-8">
+      <div id="honey-active-scenario-card" class="cyber-card p-5 sm:p-6 bg-[#0D1527] border-[rgba(255,255,255,0.08)]">
         <!-- Rendered dynamically -->
       </div>
 
@@ -99,13 +107,15 @@ function renderScenarioTabs(container, scenarios) {
     return `
       <button 
         data-scenario-idx="${idx}"
-        class="scenario-tab-btn flex-shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 ${
+        class="scenario-tab-btn flex-shrink-0 px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-2 ${
           isActive 
-            ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/20' 
-            : 'bg-[#111C2E] hover:bg-[#1E314B] text-slate-300 border border-slate-800'
+            ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30' 
+            : 'bg-[#10182B] hover:bg-[#16233B] text-slate-400 hover:text-white border border-[rgba(255,255,255,0.06)]'
         }"
       >
-        <span>${isCompleted ? '✓' : '#' + (idx + 1)}</span>
+        <span class="font-mono-code text-[11px] ${isCompleted ? 'text-emerald-400 font-bold' : 'text-slate-500'}">
+          ${isCompleted ? '✓' : '#' + (idx + 1)}
+        </span>
         <span>${s.title}</span>
       </button>
     `;
@@ -131,49 +141,50 @@ function renderScenarioCard(container, scenario) {
 
   card.innerHTML = `
     <!-- Top Scenario Meta -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 mb-4 border-b border-slate-800">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 mb-4 border-b border-[rgba(255,255,255,0.08)]">
       <div>
-        <span class="text-xs uppercase font-bold tracking-wider text-purple-400">${scenario.category}</span>
-        <h2 class="text-xl font-bold text-white mt-1">${scenario.title}</h2>
+        <span class="badge-subtle badge-neutral font-mono-code">${scenario.category}</span>
+        <h2 class="text-lg font-bold text-white mt-1.5">${scenario.title}</h2>
       </div>
-      <div class="flex items-center gap-2 text-xs text-slate-400 bg-[#0B1220] px-3 py-1.5 rounded-lg border border-slate-800">
-        <span class="text-slate-500">${t("honey_scenario_sender")}:</span>
-        <span class="font-mono text-slate-200 font-semibold">${scenario.sender}</span>
+      <div class="flex items-center gap-2 text-xs text-slate-400 bg-[#080C15] px-3 py-1.5 rounded-lg border border-[rgba(255,255,255,0.06)]">
+        <span class="text-slate-500 text-[11px]">${t("honey_scenario_sender")}:</span>
+        <span class="font-mono-code text-slate-200 text-xs">${scenario.sender}</span>
       </div>
     </div>
 
     <!-- Fictional Scam Message Bubble -->
-    <div class="p-5 rounded-2xl bg-[#0B1220] border-2 border-slate-800 text-slate-200 text-sm leading-relaxed mb-6 font-mono-code relative">
-      <div class="absolute -top-3 left-4 px-2 py-0.5 rounded bg-slate-800 text-[10px] text-slate-400 font-bold uppercase tracking-wider">
-        Simulated Incoming Communication
+    <div class="p-4 rounded-lg bg-[#080C15] border border-[rgba(255,255,255,0.08)] text-slate-200 text-xs leading-relaxed mb-5 font-mono-code relative">
+      <div class="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-2 flex items-center gap-1.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+        Simulated Inbound Transmission
       </div>
-      ${scenario.message}
+      <div class="text-slate-200">${scenario.message}</div>
     </div>
 
     <!-- Active Manipulation Tactics Chips -->
-    <div class="flex flex-wrap items-center gap-2 mb-6">
-      <span class="text-xs font-semibold text-slate-400">${isHi ? 'प्रयुक्त दबाव तकनीकें:' : 'Manipulation levers present:'}</span>
+    <div class="flex flex-wrap items-center gap-2 mb-5">
+      <span class="text-[11px] font-semibold text-slate-400 uppercase">${isHi ? 'प्रयुक्त दबाव तकनीकें:' : 'Identified Manipulation Levers:'}</span>
       ${scenario.manipulation_tactics.map(t => `
-        <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-500/10 text-amber-300 border border-amber-500/30">
-          ⚡ ${t}
+        <span class="badge-subtle badge-amber">
+          ${t}
         </span>
       `).join("")}
     </div>
 
     <!-- Response Options -->
-    <div class="flex flex-col gap-3">
-      <span class="text-xs font-bold uppercase tracking-wider text-white">${t("honey_scenario_prompt")}</span>
+    <div class="flex flex-col gap-2.5">
+      <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">${t("honey_scenario_prompt")}</span>
       ${scenario.options.map((opt, i) => `
         <button 
           data-opt-id="${opt.id}"
-          class="scenario-opt-btn p-4 rounded-xl bg-[#111C2E] hover:bg-[#162438] border border-slate-700/80 hover:border-purple-500/50 text-left transition-all group flex items-start gap-3.5"
+          class="scenario-opt-btn p-3.5 rounded-lg bg-[#10182B] hover:bg-[#16233B] border border-[rgba(255,255,255,0.06)] hover:border-emerald-500/40 text-left transition-all group flex items-start gap-3"
         >
-          <span class="flex-shrink-0 w-7 h-7 rounded-lg bg-purple-500/20 text-purple-300 border border-purple-500/30 flex items-center justify-center font-bold text-xs group-hover:bg-purple-500 group-hover:text-slate-950 transition-colors">
+          <span class="flex-shrink-0 w-6 h-6 rounded bg-[#080C15] text-slate-300 border border-[rgba(255,255,255,0.1)] flex items-center justify-center font-mono-code font-bold text-xs group-hover:border-emerald-500/50 group-hover:text-emerald-400 transition-colors">
             ${String.fromCharCode(65 + i)}
           </span>
           <div class="flex flex-col">
-            <span class="text-sm font-semibold text-slate-200 group-hover:text-white transition-colors">${opt.label}</span>
-            <span class="text-xs text-slate-400 mt-0.5">${opt.description}</span>
+            <span class="text-xs font-semibold text-slate-200 group-hover:text-white transition-colors">${opt.label}</span>
+            <span class="text-[11px] text-slate-400 mt-0.5 leading-relaxed">${opt.description}</span>
           </div>
         </button>
       `).join("")}
@@ -213,42 +224,37 @@ function renderScenarioCard(container, scenario) {
 }
 
 function renderEvaluationResult(ev, isHi) {
-  let outcomeClass = "border-emerald-500/80 bg-emerald-950/20 text-emerald-300";
-  let icon = "✓";
-  if (!ev.is_safe) {
-    outcomeClass = "border-red-500/80 bg-red-950/20 text-red-300";
-    icon = "✕";
-  }
+  const isSafe = ev.is_safe;
 
   return `
-    <div class="cyber-card p-6 sm:p-8 border-2 ${outcomeClass}">
-      <div class="flex items-center justify-between gap-3 pb-4 mb-4 border-b border-slate-800">
+    <div class="cyber-card p-5 sm:p-6 bg-[#0D1527] border ${isSafe ? 'border-emerald-500/40' : 'border-rose-500/40'}">
+      <div class="flex items-center justify-between gap-3 pb-3.5 mb-3.5 border-b border-[rgba(255,255,255,0.08)]">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl ${ev.is_safe ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'} flex items-center justify-center font-extrabold text-lg">
-            ${icon}
+          <div class="w-8 h-8 rounded-lg ${isSafe ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/25' : 'bg-rose-500/10 text-rose-400 border border-rose-500/25'} flex items-center justify-center font-bold text-sm">
+            ${isSafe ? '✓' : '✕'}
           </div>
           <div>
-            <h3 class="text-lg font-bold text-white">${ev.feedback_title}</h3>
-            <span class="text-xs font-semibold ${ev.score_impact > 0 ? 'text-emerald-400' : 'text-red-400'}">
-              Score impact: ${ev.score_impact > 0 ? '+' : ''}${ev.score_impact} pts
+            <h3 class="text-sm font-bold text-white">${ev.feedback_title}</h3>
+            <span class="text-[11px] font-mono-code font-semibold ${ev.score_impact > 0 ? 'text-emerald-400' : 'text-rose-400'}">
+              Score Assessment: ${ev.score_impact > 0 ? '+' : ''}${ev.score_impact} pts
             </span>
           </div>
         </div>
       </div>
 
-      <div class="p-4 rounded-xl bg-[#0B1220] border border-slate-800 text-sm text-slate-200 leading-relaxed mb-4">
+      <div class="p-3.5 rounded-lg bg-[#080C15] border border-[rgba(255,255,255,0.06)] text-xs text-slate-200 leading-relaxed mb-4">
         ${ev.feedback}
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-        <div class="p-3.5 rounded-xl bg-[#111C2E] border border-slate-800">
-          <strong class="text-slate-300 block mb-1">${t("honey_why_title")}</strong>
-          <span class="text-slate-400 leading-relaxed">${ev.why_risky_or_safe}</span>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+        <div class="p-3 rounded-lg bg-[#10182B] border border-[rgba(255,255,255,0.06)]">
+          <strong class="text-slate-300 block mb-1 text-[11px] font-semibold uppercase tracking-wider">${t("honey_why_title")}</strong>
+          <span class="text-slate-400 leading-relaxed text-[11px]">${ev.why_risky_or_safe}</span>
         </div>
 
-        <div class="p-3.5 rounded-xl bg-[#111C2E] border border-slate-800">
-          <strong class="text-emerald-400 block mb-1">${t("honey_safer_title")}</strong>
-          <span class="text-slate-300 leading-relaxed">${ev.safer_response}</span>
+        <div class="p-3 rounded-lg bg-[#10182B] border border-[rgba(255,255,255,0.06)]">
+          <strong class="text-emerald-400 block mb-1 text-[11px] font-semibold uppercase tracking-wider">${t("honey_safer_title")}</strong>
+          <span class="text-slate-300 leading-relaxed text-[11px]">${ev.safer_response}</span>
         </div>
       </div>
     </div>

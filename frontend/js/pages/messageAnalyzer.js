@@ -45,42 +45,45 @@ export function renderMessageAnalyzer(container) {
 
   container.innerHTML = `
     <div class="flex flex-col gap-6 pb-12 animate-fade-in max-w-5xl mx-auto">
-      <!-- Header -->
-      <div class="flex flex-col gap-1.5">
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+      <!-- Section Header -->
+      <div class="flex flex-col gap-1">
+        <div class="flex items-center gap-2">
+          <span class="badge-subtle badge-neutral">FORENSIC ENGINE</span>
+        </div>
+        <h1 class="text-xl sm:text-2xl font-bold text-white tracking-tight">
           ${t("analyzer_title")}
         </h1>
-        <p class="text-slate-400 text-sm">
+        <p class="text-slate-400 text-xs">
           ${t("analyzer_sub")}
         </p>
       </div>
 
       <!-- Main Input Workspace -->
-      <div class="cyber-card p-6 sm:p-8">
+      <div class="cyber-card p-5 sm:p-6">
         <!-- Message Type Tabs -->
-        <div class="flex items-center gap-2 border-b border-slate-800 pb-4 mb-4 overflow-x-auto">
-          <button class="msg-type-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+        <div class="flex items-center gap-1.5 border-b border-[rgba(255,255,255,0.06)] pb-3 mb-3.5 overflow-x-auto">
+          <button class="msg-type-btn px-3 py-1 rounded-md text-xs font-medium bg-emerald-500/10 text-emerald-300 border border-emerald-500/25">
             ${t("analyzer_tab_sms")}
           </button>
-          <button class="msg-type-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white hover:bg-[#0B1220] transition-colors">
+          <button class="msg-type-btn px-3 py-1 rounded-md text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.03] transition-colors">
             ${t("analyzer_tab_whatsapp")}
           </button>
-          <button class="msg-type-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white hover:bg-[#0B1220] transition-colors">
+          <button class="msg-type-btn px-3 py-1 rounded-md text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.03] transition-colors">
             ${t("analyzer_tab_email")}
           </button>
-          <button class="msg-type-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white hover:bg-[#0B1220] transition-colors">
+          <button class="msg-type-btn px-3 py-1 rounded-md text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.03] transition-colors">
             ${t("analyzer_tab_transcript")}
           </button>
         </div>
 
-        <!-- Sample messages chips -->
-        <div class="flex flex-col gap-2 mb-4">
-          <span class="text-xs font-medium text-slate-400">${t("analyzer_sample_label")}</span>
-          <div class="flex flex-wrap gap-2">
+        <!-- Sample presets -->
+        <div class="flex flex-col gap-1.5 mb-3.5">
+          <span class="text-[11px] font-medium text-slate-400">${t("analyzer_sample_label")}</span>
+          <div class="flex flex-wrap gap-1.5">
             ${PRELOADED_SAMPLES.map((s, idx) => `
               <button 
                 data-sample-idx="${idx}"
-                class="sample-pill-btn px-3 py-1 rounded-lg text-xs bg-[#111C2E] hover:bg-[#1E314B] text-slate-300 hover:text-white border border-slate-700 transition-colors"
+                class="sample-pill-btn px-2.5 py-1 rounded-md text-[11px] bg-[#0A101C] hover:bg-[#131E35] text-slate-300 hover:text-white border border-[rgba(255,255,255,0.08)] hover:border-slate-600 transition-colors"
               >
                 ${isHi ? s.label_hi : s.label_en}
               </button>
@@ -89,29 +92,29 @@ export function renderMessageAnalyzer(container) {
         </div>
 
         <!-- Textarea input -->
-        <div class="relative mb-4">
+        <div class="relative mb-3.5">
           <textarea 
             id="analyzer-textarea"
             rows="5"
-            class="w-full p-4 rounded-xl bg-[#0B1220] border border-[#1E314B] focus:border-emerald-400 text-slate-200 text-sm placeholder:text-slate-500 resize-y transition-all leading-relaxed"
+            class="w-full p-3.5 rounded-lg bg-[#080C15] border border-[rgba(255,255,255,0.08)] focus:border-emerald-500/50 text-slate-200 text-xs placeholder:text-slate-500 resize-y transition-all leading-relaxed font-mono-code"
             placeholder="${t("analyzer_input_placeholder")}"
           ></textarea>
         </div>
 
-        <!-- Controls -->
+        <!-- Action Bar -->
         <div class="flex flex-wrap items-center justify-between gap-3">
           <button 
             id="analyzer-clear-btn"
-            class="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-[#111C2E] border border-transparent hover:border-slate-700 transition-all"
+            class="px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.04] transition-all"
           >
             ${t("analyzer_btn_clear")}
           </button>
           <button 
             id="analyzer-submit-btn"
-            class="px-6 py-2.5 rounded-xl font-bold text-sm bg-emerald-500 hover:bg-emerald-400 text-slate-950 transition-all shadow-lg shadow-emerald-500/20 flex items-center gap-2"
+            class="px-5 py-2 rounded-lg font-semibold text-xs bg-emerald-500 hover:bg-emerald-400 text-slate-950 transition-colors shadow-sm flex items-center gap-2"
           >
             <span id="analyzer-btn-label">${t("analyzer_btn_analyze")}</span>
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
             </svg>
           </button>
@@ -119,13 +122,12 @@ export function renderMessageAnalyzer(container) {
       </div>
 
       <!-- Analysis Results View -->
-      <div id="analyzer-results-area" class="${currentResult ? '' : 'hidden'} flex flex-col gap-6">
+      <div id="analyzer-results-area" class="${currentResult ? '' : 'hidden'} flex flex-col gap-5">
         ${currentResult ? renderAnalysisResultContent(currentResult, isHi) : ''}
       </div>
     </div>
   `;
 
-  // Preloaded sample selection
   const textarea = container.querySelector("#analyzer-textarea");
   container.querySelectorAll("button[data-sample-idx]").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -135,14 +137,12 @@ export function renderMessageAnalyzer(container) {
     });
   });
 
-  // Clear button
   container.querySelector("#analyzer-clear-btn").addEventListener("click", () => {
     textarea.value = "";
     const resultsArea = container.querySelector("#analyzer-results-area");
     if (resultsArea) resultsArea.classList.add("hidden");
   });
 
-  // Submit button
   const submitBtn = container.querySelector("#analyzer-submit-btn");
   const btnLabel = container.querySelector("#analyzer-btn-label");
 
@@ -160,7 +160,6 @@ export function renderMessageAnalyzer(container) {
       const result = await api.analyzeMessage(text, isHi ? "hi" : "en");
       store.recordMessageAnalysis(result, text);
 
-      // Check if pause intervention needed
       if (result.pause_intervention) {
         showPauseModal(result.pause_message);
       }
@@ -186,48 +185,45 @@ export function renderMessageAnalyzer(container) {
 }
 
 function renderAnalysisResultContent(res, isHi) {
-  let riskColorClass = "border-emerald-500/50 bg-emerald-950/20 text-emerald-400";
-  let scoreColorClass = "text-emerald-400";
-  if (res.risk_level === "CRITICAL") {
-    riskColorClass = "border-red-500/80 bg-red-950/30 text-red-400";
-    scoreColorClass = "text-red-400";
-  } else if (res.risk_level === "HIGH") {
-    riskColorClass = "border-red-500/50 bg-red-950/20 text-red-400";
-    scoreColorClass = "text-red-400";
+  let badgeClass = "badge-emerald";
+  let scoreColor = "text-emerald-400";
+  if (res.risk_level === "CRITICAL" || res.risk_level === "HIGH") {
+    badgeClass = "badge-rose";
+    scoreColor = "text-rose-400";
   } else if (res.risk_level === "MEDIUM") {
-    riskColorClass = "border-amber-500/50 bg-amber-950/20 text-amber-400";
-    scoreColorClass = "text-amber-400";
+    badgeClass = "badge-amber";
+    scoreColor = "text-amber-400";
   }
 
   return `
     <!-- Top Result Banner -->
-    <div class="cyber-card p-6 sm:p-8 border-2 ${riskColorClass}">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+    <div class="cyber-card p-5 sm:p-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[rgba(255,255,255,0.06)]">
         <div>
           <div class="flex items-center gap-2 mb-1.5">
-            <span class="px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-black/40 border ${riskColorClass}">
+            <span class="badge-subtle ${badgeClass}">
               ${res.risk_level} RISK
             </span>
-            <span class="text-xs text-slate-400">Confidence: ${res.confidence}</span>
+            <span class="text-[11px] text-slate-400 font-mono-code">CONFIDENCE: ${res.confidence}</span>
           </div>
-          <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight">${res.explanation}</h2>
+          <h2 class="text-base sm:text-lg font-bold text-white tracking-tight">${res.explanation}</h2>
         </div>
 
-        <div class="flex items-center gap-3 self-start sm:self-center">
+        <div class="flex items-center gap-3 self-start sm:self-center flex-shrink-0">
           <div class="flex flex-col items-end">
-            <span class="text-xs text-slate-400 uppercase font-semibold">Heuristic Score</span>
-            <div class="text-4xl font-extrabold ${scoreColorClass}">${res.risk_score}<span class="text-sm text-slate-500 font-normal">/100</span></div>
+            <span class="text-[10px] text-slate-500 uppercase font-mono-code">Heuristic Index</span>
+            <div class="text-3xl font-extrabold ${scoreColor}">${res.risk_score}<span class="text-xs text-slate-500 font-normal">/100</span></div>
           </div>
         </div>
       </div>
 
       <!-- Action Buttons Row -->
-      <div class="flex flex-wrap items-center justify-between gap-3 pt-4">
-        <button id="res-btn-another" class="px-4 py-2 rounded-xl text-xs font-semibold bg-[#111C2E] hover:bg-[#1E314B] text-slate-300 border border-slate-700 transition-colors">
-          ← ${t("analyzer_btn_another")}
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-3.5">
+        <button id="res-btn-another" class="px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white bg-[#0A101C] border border-[rgba(255,255,255,0.08)] hover:border-slate-600 transition-colors">
+          ${t("analyzer_btn_another")}
         </button>
-        <button id="res-btn-scamdna" class="px-5 py-2.5 rounded-xl font-bold text-xs bg-teal-500 hover:bg-teal-400 text-slate-950 transition-all shadow-md shadow-teal-500/20 flex items-center gap-2">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button id="res-btn-scamdna" class="px-4 py-2 rounded-lg font-semibold text-xs bg-teal-500 hover:bg-teal-400 text-slate-950 transition-colors shadow-sm flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
           </svg>
           <span>${t("analyzer_btn_scamdna")}</span>
@@ -235,36 +231,36 @@ function renderAnalysisResultContent(res, isHi) {
       </div>
     </div>
 
-    <!-- Psychological Scam Decoder Cards -->
-    <div class="flex flex-col gap-3">
-      <div class="flex flex-col gap-1">
-        <h3 class="text-lg font-bold text-white">${t("analyzer_tactics_title")}</h3>
+    <!-- Psychological Tactics Breakdown -->
+    <div class="flex flex-col gap-2.5">
+      <div class="flex flex-col">
+        <h3 class="text-sm font-bold text-white uppercase tracking-wider">${t("analyzer_tactics_title")}</h3>
         <p class="text-xs text-slate-400">${t("analyzer_tactics_sub")}</p>
       </div>
 
       ${res.psychological_tactics.length === 0 ? `
-        <div class="cyber-card p-6 text-center text-slate-400 text-xs">
-          ${isHi ? "इस संदेश में कोई विशिष्ट मनोवैज्ञानिक हेरफेर तकनीक नहीं पाई गई।" : "No explicit psychological pressure or manipulation tactics were flagged in this message."}
+        <div class="cyber-card p-4 text-center text-slate-400 text-xs">
+          ${isHi ? "इस संदेश में कोई विशिष्ट मनोवैज्ञानिक दबाव तकनीक नहीं पाई गई।" : "No explicit psychological pressure or manipulation vectors were flagged in this message."}
         </div>
       ` : `
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
           ${res.psychological_tactics.map(tactic => `
-            <div class="cyber-card p-5 border-l-4 border-l-amber-500 flex flex-col justify-between">
+            <div class="cyber-card p-4 flex flex-col justify-between border-l-2 border-l-amber-500/80">
               <div>
-                <div class="flex items-center justify-between gap-2 mb-2">
-                  <h4 class="text-sm font-bold text-white">${tactic.name}</h4>
-                  <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/30 uppercase font-semibold">Tactic</span>
+                <div class="flex items-center justify-between gap-2 mb-1.5">
+                  <h4 class="text-xs font-bold text-white">${tactic.name}</h4>
+                  <span class="badge-subtle badge-amber">FLAGGED</span>
                 </div>
-                <div class="p-2.5 rounded-lg bg-[#0B1220] border border-slate-800 text-xs text-amber-200/90 font-mono-code mb-3">
+                <div class="p-2 rounded bg-[#080C15] border border-[rgba(255,255,255,0.06)] text-xs text-amber-200/90 font-mono-code mb-2.5">
                   ${tactic.detected_phrase}
                 </div>
-                <p class="text-xs text-slate-300 leading-relaxed mb-3">${tactic.explanation}</p>
-                <div class="text-[11px] text-slate-400 bg-[#111C2E] p-2.5 rounded-lg border border-slate-800/80 mb-3">
-                  <strong class="text-slate-300">${isHi ? 'यह क्यों असर करता है:' : 'Why it works:'}</strong> ${tactic.why_effective}
+                <p class="text-xs text-slate-300 leading-relaxed mb-2">${tactic.explanation}</p>
+                <div class="text-[11px] text-slate-400 bg-[#0A101C] p-2 rounded border border-[rgba(255,255,255,0.04)] mb-2.5">
+                  <strong class="text-slate-300 font-mono-code">${isHi ? 'प्रभाव:' : 'Mechanism:'}</strong> ${tactic.why_effective}
                 </div>
               </div>
-              <div class="pt-3 border-t border-slate-800 text-xs text-emerald-300 flex items-start gap-1.5">
-                <span class="font-bold text-emerald-400">🛡️</span>
+              <div class="pt-2 border-t border-[rgba(255,255,255,0.06)] text-xs text-emerald-400 flex items-start gap-1.5">
+                <span class="font-bold">→</span>
                 <span>${tactic.counter_action}</span>
               </div>
             </div>
@@ -273,23 +269,23 @@ function renderAnalysisResultContent(res, isHi) {
       `}
     </div>
 
-    <!-- Recommended Immediate Actions Checklist -->
-    <div class="cyber-card p-6">
-      <h3 class="text-base font-bold text-white mb-3">${t("analyzer_actions_title")}</h3>
-      <div class="flex flex-col gap-2.5">
+    <!-- Recommended Protective Actions -->
+    <div class="cyber-card p-5">
+      <h3 class="text-xs font-bold uppercase tracking-wider text-white mb-2.5">${t("analyzer_actions_title")}</h3>
+      <div class="flex flex-col gap-2">
         ${res.recommended_actions.map(action => `
-          <div class="flex items-start gap-3 p-3 rounded-xl bg-[#0B1220] border border-slate-800 text-xs text-slate-200">
-            <span class="text-emerald-400 font-bold text-sm mt-0.5">✓</span>
+          <div class="flex items-start gap-2.5 p-2.5 rounded-lg bg-[#080C15] border border-[rgba(255,255,255,0.06)] text-xs text-slate-200">
+            <span class="text-emerald-400 font-bold mt-0.5">•</span>
             <span class="leading-relaxed">${action}</span>
           </div>
         `).join("")}
       </div>
     </div>
 
-    <!-- Transparency & Limitations Notice -->
-    <div class="p-4 rounded-xl bg-[#111C2E] border border-slate-800 text-xs text-slate-400 leading-relaxed">
-      <strong class="text-slate-300">${t("analyzer_limitations_title")}:</strong> ${res.limitations}
-      <div class="mt-1 text-[11px] text-slate-500">Method: ${res.analysis_method}</div>
+    <!-- Technical Transparency Note -->
+    <div class="p-3.5 rounded-lg bg-[#0A101C] border border-[rgba(255,255,255,0.06)] text-[11px] text-slate-400 leading-relaxed">
+      <strong class="text-slate-300 font-mono-code">${t("analyzer_limitations_title")}:</strong> ${res.limitations}
+      <div class="mt-0.5 text-[10px] text-slate-500 font-mono-code">Engine: ${res.analysis_method}</div>
     </div>
   `;
 }
@@ -309,7 +305,6 @@ function attachResultAreaListeners(resultsArea, result) {
 
   if (dnaBtn) {
     dnaBtn.addEventListener("click", async () => {
-      // Trigger Scam DNA generation
       store.setActiveTab("dna");
       try {
         const dnaData = await api.generateDNA({

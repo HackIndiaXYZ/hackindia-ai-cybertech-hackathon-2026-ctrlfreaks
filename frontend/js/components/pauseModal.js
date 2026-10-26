@@ -17,53 +17,53 @@ export function showPauseModal(customMessage = null, onDismiss = null) {
 
   const modal = document.createElement("div");
   modal.id = "pause-intervention-modal";
-  modal.className = "fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in";
+  modal.className = "fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in";
   
   modal.innerHTML = `
-    <div class="relative w-full max-w-lg p-6 rounded-2xl bg-[#111C2E] border-2 border-amber-500/80 shadow-2xl text-left transform transition-all">
+    <div class="relative w-full max-w-lg p-6 rounded-2xl bg-[#0D1424] border border-amber-500/40 shadow-2xl text-left">
       <!-- Top banner / warning icon -->
-      <div class="flex items-center gap-4 mb-4">
-        <div class="flex items-center justify-center w-14 h-14 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/40 animate-pulse-slow flex-shrink-0">
-          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      <div class="flex items-center gap-3.5 mb-4">
+        <div class="flex items-center justify-center w-11 h-11 rounded-xl bg-amber-500/15 text-amber-400 border border-amber-500/30 flex-shrink-0">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
           </svg>
         </div>
         <div>
-          <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-amber-500/20 text-amber-300 border border-amber-500/30 mb-1">
-            ${isHi ? "मनोवैज्ञानिक हस्तक्षेप" : "Behavioral Intervention"}
+          <span class="badge-subtle badge-amber mb-1">
+            ${isHi ? "मनोवैज्ञानिक हस्तक्षेप" : "BEHAVIORAL INTERVENTION"}
           </span>
-          <h3 class="text-xl font-bold text-white tracking-tight">${title}</h3>
+          <h3 class="text-lg font-bold text-white tracking-tight">${title}</h3>
         </div>
       </div>
 
-      <div class="p-4 rounded-xl bg-[#0B1220] border border-slate-700/60 mb-6">
-        <p class="text-slate-200 text-sm leading-relaxed">${bodyText}</p>
+      <div class="p-3.5 rounded-xl bg-[#080C15] border border-[rgba(255,255,255,0.06)] mb-5">
+        <p class="text-slate-200 text-xs sm:text-sm leading-relaxed">${bodyText}</p>
       </div>
 
       <!-- Key safety checklist pills -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-6 text-xs text-slate-300">
-        <div class="flex items-center gap-2 p-2.5 rounded-lg bg-[#162438] border border-slate-700">
-          <span class="text-emerald-400 font-bold text-base">✓</span>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-5 text-xs text-slate-300">
+        <div class="flex items-center gap-2 p-2.5 rounded-lg bg-[#111A2E] border border-[rgba(255,255,255,0.06)]">
+          <span class="text-emerald-400 font-bold">•</span>
           <span>${isHi ? "कॉल तुरंत डिस्कनेक्ट करें" : "End the call if pressured"}</span>
         </div>
-        <div class="flex items-center gap-2 p-2.5 rounded-lg bg-[#162438] border border-slate-700">
-          <span class="text-emerald-400 font-bold text-base">✓</span>
+        <div class="flex items-center gap-2 p-2.5 rounded-lg bg-[#111A2E] border border-[rgba(255,255,255,0.06)]">
+          <span class="text-emerald-400 font-bold">•</span>
           <span>${isHi ? "ओटीपी या पिन कभी न दें" : "Never share OTP or UPI PIN"}</span>
         </div>
-        <div class="flex items-center gap-2 p-2.5 rounded-lg bg-[#162438] border border-slate-700">
-          <span class="text-emerald-400 font-bold text-base">✓</span>
+        <div class="flex items-center gap-2 p-2.5 rounded-lg bg-[#111A2E] border border-[rgba(255,255,255,0.06)]">
+          <span class="text-emerald-400 font-bold">•</span>
           <span>${isHi ? "स्वतंत्र रूप से पुष्टि करें" : "Verify via official website"}</span>
         </div>
-        <div class="flex items-center gap-2 p-2.5 rounded-lg bg-[#162438] border border-slate-700">
-          <span class="text-emerald-400 font-bold text-base">✓</span>
+        <div class="flex items-center gap-2 p-2.5 rounded-lg bg-[#111A2E] border border-[rgba(255,255,255,0.06)]">
+          <span class="text-emerald-400 font-bold">•</span>
           <span>${isHi ? "विश्वसनीय व्यक्ति से बात करें" : "Consult a trusted person"}</span>
         </div>
       </div>
 
-      <!-- Action buttons -->
-      <div class="flex flex-col sm:flex-row items-center justify-end gap-3">
-        <button id="pause-modal-dismiss-btn" class="w-full sm:w-auto px-6 py-2.5 rounded-xl font-semibold text-sm bg-emerald-500 hover:bg-emerald-400 text-slate-950 transition-colors shadow-lg shadow-emerald-500/20">
-          ${isHi ? "मैं समझ गया, अब रिपोर्ट देखें" : "I Understand — Continue to Report"}
+      <!-- Action button -->
+      <div class="flex justify-end">
+        <button id="pause-modal-dismiss-btn" class="w-full sm:w-auto px-5 py-2 rounded-lg font-semibold text-xs bg-emerald-500 hover:bg-emerald-400 text-slate-950 transition-colors shadow-sm">
+          ${isHi ? "मैं समझ गया, रिपोर्ट देखें" : "I Understand — Proceed to Report"}
         </button>
       </div>
     </div>

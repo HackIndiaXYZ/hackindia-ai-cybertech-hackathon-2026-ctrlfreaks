@@ -9,38 +9,43 @@ export function renderSafetyCenter(container) {
 
   container.innerHTML = `
     <div class="flex flex-col gap-6 pb-12 animate-fade-in max-w-5xl mx-auto">
-      <!-- Header -->
-      <div class="flex flex-col gap-1.5">
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+      <!-- Section Header -->
+      <div class="flex flex-col gap-1">
+        <div class="flex items-center gap-2">
+          <span class="badge-subtle badge-rose">INCIDENT RESPONSE</span>
+        </div>
+        <h1 class="text-xl sm:text-2xl font-bold text-white tracking-tight">
           ${t("safety_title")}
         </h1>
-        <p class="text-slate-400 text-sm">
+        <p class="text-slate-400 text-xs">
           ${t("safety_sub")}
         </p>
       </div>
 
-      <!-- National Helpline 1930 Emergency Banner -->
-      <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-red-950/60 via-slate-900 to-amber-950/40 border-2 border-red-500/60 p-6 sm:p-8 shadow-2xl">
+      <!-- National Helpline 1930 Emergency Console -->
+      <div class="relative overflow-hidden rounded-xl bg-gradient-to-r from-rose-950/40 via-[#10182B] to-[#0A101C] border border-rose-500/40 p-6 sm:p-7 shadow-xl">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div class="flex items-start gap-4">
-            <div class="w-14 h-14 rounded-2xl bg-red-500/20 text-red-400 border border-red-500/40 flex items-center justify-center font-extrabold text-2xl flex-shrink-0 animate-pulse-slow">
-              🚨
+            <div class="w-12 h-12 rounded-xl bg-rose-500/10 text-rose-400 border border-rose-500/30 flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+              </svg>
             </div>
             <div>
-              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-red-500/20 text-red-300 border border-red-500/30 mb-1 inline-block">
-                Emergency Resource • India
+              <span class="badge-subtle badge-rose mb-1.5 inline-flex">
+                GOVERNMENT OF INDIA • NATIONAL CYBER HELPLINE
               </span>
-              <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight">${t("safety_helpline_banner")}</h2>
-              <p class="text-xs sm:text-sm text-slate-300 mt-1 leading-relaxed">
+              <h2 class="text-lg sm:text-xl font-bold text-white tracking-tight">${t("safety_helpline_banner")}</h2>
+              <p class="text-xs text-slate-300 mt-1 leading-relaxed max-w-xl">
                 ${t("safety_helpline_sub")}
               </p>
             </div>
           </div>
 
-          <div class="flex flex-col sm:flex-row gap-3 self-start sm:self-center flex-shrink-0">
+          <div class="flex flex-col sm:flex-row gap-2.5 self-start sm:self-center flex-shrink-0">
             <a 
               href="tel:1930" 
-              class="px-5 py-3 rounded-xl font-bold text-xs bg-red-500 hover:bg-red-400 text-white transition-all shadow-lg shadow-red-500/20 flex items-center justify-center gap-2"
+              class="px-4 py-2.5 rounded-lg font-bold text-xs bg-rose-600 hover:bg-rose-500 text-white transition-all shadow-sm flex items-center justify-center gap-2"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
@@ -51,7 +56,7 @@ export function renderSafetyCenter(container) {
               href="https://cybercrime.gov.in/" 
               target="_blank" 
               rel="noopener noreferrer"
-              class="px-4 py-3 rounded-xl font-semibold text-xs bg-[#162438] hover:bg-[#1E314B] text-slate-200 border border-slate-700 transition-colors flex items-center justify-center gap-2"
+              class="px-4 py-2.5 rounded-lg font-semibold text-xs bg-[#10182B] hover:bg-[#16233B] text-slate-200 border border-[rgba(255,255,255,0.08)] transition-colors flex items-center justify-center gap-2"
             >
               <span>${t("safety_portal_btn")}</span>
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -61,80 +66,80 @@ export function renderSafetyCenter(container) {
           </div>
         </div>
 
-        <div class="mt-4 pt-4 border-t border-red-500/20 text-[11px] text-slate-400">
-          <strong>${isHi ? 'महत्वपूर्ण सूचना:' : 'Important Notice:'}</strong> ${isHi 
+        <div class="mt-4 pt-3.5 border-t border-[rgba(255,255,255,0.06)] text-[11px] text-slate-400">
+          <strong class="text-slate-300 font-semibold">${isHi ? 'प्रोटोकॉल सूचना:' : 'Protocol Notice:'}</strong> ${isHi 
             ? 'स्कैमसाथी एक शैक्षिक व विश्लेषणात्मक उपकरण है। यह स्वयं पुलिस शिकायत दर्ज नहीं करता और न ही लेन-देन को फ्रीज करता है। आधिकारिक कार्रवाई के लिए 1930 पर तुरंत कॉल करें।'
-            : 'ScamSaathi is an assistive analysis tool. It does not file police reports or freeze bank transactions on its own. For legal recourse or transaction freezing, call 1930 immediately.'}
+            : 'ScamSaathi is an assistive analysis utility. It does not file official police FIRs or freeze banking transactions autonomously. For statutory intervention or payment holding, initiate contact with 1930.'}
         </div>
       </div>
 
       <!-- Action-Oriented Interactive Checklist -->
-      <div class="cyber-card p-6 sm:p-8">
-        <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-800">
+      <div class="cyber-card p-5 sm:p-6 bg-[#0D1527] border-[rgba(255,255,255,0.08)]">
+        <div class="flex items-center justify-between pb-3.5 mb-3.5 border-b border-[rgba(255,255,255,0.08)]">
           <div>
-            <h3 class="text-base font-bold text-white">${t("safety_checklist_title")}</h3>
-            <span class="text-xs text-slate-400">${isHi ? 'कदम पूरा होने पर सही का निशान लगाएं' : 'Mark off protective steps as you complete them'}</span>
+            <h3 class="text-sm font-bold text-white">${t("safety_checklist_title")}</h3>
+            <span class="text-[11px] text-slate-400">${isHi ? 'कदम पूरा होने पर सही का निशान लगाएं' : 'Systematic isolation procedure following suspicious contact'}</span>
           </div>
-          <span class="text-xs px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-semibold">
-            Interactive
+          <span class="badge-subtle badge-emerald">
+            PROTOCOL CHECKLIST
           </span>
         </div>
 
-        <div class="flex flex-col gap-3">
-          <label class="flex items-start gap-3 p-3.5 rounded-xl bg-[#0B1220] border border-slate-800 hover:border-slate-700 cursor-pointer transition-colors">
-            <input type="checkbox" id="check-indep" class="w-4 h-4 mt-0.5 rounded text-emerald-500 focus:ring-emerald-400 border-slate-700 bg-[#162438]" ${store.safetyChecklist.msg_verify_independently ? 'checked' : ''}/>
+        <div class="flex flex-col gap-2.5">
+          <label class="flex items-start gap-3 p-3 rounded-lg bg-[#080C15] border border-[rgba(255,255,255,0.06)] hover:border-slate-600 cursor-pointer transition-colors">
+            <input type="checkbox" id="check-indep" class="w-4 h-4 mt-0.5 rounded text-emerald-500 focus:ring-0 border-slate-700 bg-[#10182B]" ${store.safetyChecklist.msg_verify_independently ? 'checked' : ''}/>
             <div class="flex flex-col text-xs">
-              <span class="font-bold text-slate-200">${isHi ? '1. प्रेषक की पहचान की स्वतंत्र रूप से पुष्टि करें' : '1. Verify sender identity independently'}</span>
-              <span class="text-slate-400 mt-0.5">${isHi ? 'संदेश में दिए गए नंबर पर कॉल न करें। आधिकारिक बैंक ऐप या गूगल मैप्स पर प्रमाणित नंबर से संपर्क करें।' : 'Do not call numbers inside the message. Look up customer support on the verified official domain.'}</span>
+              <span class="font-semibold text-slate-200">${isHi ? '1. प्रेषक की पहचान की स्वतंत्र रूप से पुष्टि करें' : '1. Verify sender identity independently'}</span>
+              <span class="text-slate-400 text-[11px] mt-0.5">${isHi ? 'संदेश में दिए गए नंबर पर कॉल न करें। आधिकारिक बैंक ऐप या प्रमाणित वेबसाइट से संपर्क करें।' : 'Do not dial phone numbers inside the communication. Reach out via verified customer care domains.'}</span>
             </div>
           </label>
 
-          <label class="flex items-start gap-3 p-3.5 rounded-xl bg-[#0B1220] border border-slate-800 hover:border-slate-700 cursor-pointer transition-colors">
-            <input type="checkbox" id="check-no-otp" class="w-4 h-4 mt-0.5 rounded text-emerald-500 focus:ring-emerald-400 border-slate-700 bg-[#162438]" ${store.safetyChecklist.msg_no_otp_share ? 'checked' : ''}/>
+          <label class="flex items-start gap-3 p-3 rounded-lg bg-[#080C15] border border-[rgba(255,255,255,0.06)] hover:border-slate-600 cursor-pointer transition-colors">
+            <input type="checkbox" id="check-no-otp" class="w-4 h-4 mt-0.5 rounded text-emerald-500 focus:ring-0 border-slate-700 bg-[#10182B]" ${store.safetyChecklist.msg_no_otp_share ? 'checked' : ''}/>
             <div class="flex flex-col text-xs">
-              <span class="font-bold text-slate-200">${isHi ? '2. ओटीपी, पासवर्ड या यूपीआई पिन कभी न दें' : '2. Strictly safeguard OTPs & UPI PIN'}</span>
-              <span class="text-slate-400 mt-0.5">${isHi ? 'पैसे प्राप्त करने के लिए कभी पिन दर्ज करने की आवश्यकता नहीं होती। पिन केवल पैसे कटने पर ही मांगा जाता है।' : 'UPI PIN is solely for transferring money OUT of your account. You NEVER need a PIN to receive payments.'}</span>
+              <span class="font-semibold text-slate-200">${isHi ? '2. ओटीपी, पासवर्ड या यूपीआई पिन कभी न दें' : '2. Strictly safeguard OTPs & UPI PIN'}</span>
+              <span class="text-slate-400 text-[11px] mt-0.5">${isHi ? 'पैसे प्राप्त करने के लिए कभी पिन दर्ज करने की आवश्यकता नहीं होती। पिन केवल पैसे कटने पर ही मांगा जाता है।' : 'UPI PIN is strictly required for debits. Receiving refunds or prize money never requires entering a security PIN.'}</span>
             </div>
           </label>
 
-          <label class="flex items-start gap-3 p-3.5 rounded-xl bg-[#0B1220] border border-slate-800 hover:border-slate-700 cursor-pointer transition-colors">
-            <input type="checkbox" id="check-block" class="w-4 h-4 mt-0.5 rounded text-emerald-500 focus:ring-emerald-400 border-slate-700 bg-[#162438]" ${store.safetyChecklist.msg_block_sender ? 'checked' : ''}/>
+          <label class="flex items-start gap-3 p-3 rounded-lg bg-[#080C15] border border-[rgba(255,255,255,0.06)] hover:border-slate-600 cursor-pointer transition-colors">
+            <input type="checkbox" id="check-block" class="w-4 h-4 mt-0.5 rounded text-emerald-500 focus:ring-0 border-slate-700 bg-[#10182B]" ${store.safetyChecklist.msg_block_sender ? 'checked' : ''}/>
             <div class="flex flex-col text-xs">
-              <span class="font-bold text-slate-200">${isHi ? '3. संदिग्ध नंबर या प्रेषक को ब्लॉक व रिपोर्ट करें' : '3. Block and report sender on device'}</span>
-              <span class="text-slate-400 mt-0.5">${isHi ? 'व्हाट्सएप या एसएमएस ऐप में "Report & Block" चुनें ताकि टेलीकॉम स्पैम फ़िल्टर अपडेट हो सके।' : 'Use the native "Report Spam & Block" feature on your SMS/WhatsApp client to train community filters.'}</span>
+              <span class="font-semibold text-slate-200">${isHi ? '3. संदिग्ध नंबर या प्रेषक को ब्लॉक व रिपोर्ट करें' : '3. Block and report sender on device'}</span>
+              <span class="text-slate-400 text-[11px] mt-0.5">${isHi ? 'व्हाट्सएप या एसएमएस ऐप में "Report & Block" चुनें ताकि टेलीकॉम स्पैम फ़िल्टर अपडेट हो सके।' : 'Utilize native "Report Spam & Block" on telecom/chat clients to reinforce community intelligence.'}</span>
             </div>
           </label>
 
-          <label class="flex items-start gap-3 p-3.5 rounded-xl bg-[#0B1220] border border-slate-800 hover:border-slate-700 cursor-pointer transition-colors">
-            <input type="checkbox" id="check-report" class="w-4 h-4 mt-0.5 rounded text-emerald-500 focus:ring-emerald-400 border-slate-700 bg-[#162438]" ${store.safetyChecklist.msg_report_cybercrime ? 'checked' : ''}/>
+          <label class="flex items-start gap-3 p-3 rounded-lg bg-[#080C15] border border-[rgba(255,255,255,0.06)] hover:border-slate-600 cursor-pointer transition-colors">
+            <input type="checkbox" id="check-report" class="w-4 h-4 mt-0.5 rounded text-emerald-500 focus:ring-0 border-slate-700 bg-[#10182B]" ${store.safetyChecklist.msg_report_cybercrime ? 'checked' : ''}/>
             <div class="flex flex-col text-xs">
-              <span class="font-bold text-slate-200">${isHi ? '4. यदि वित्तीय नुकसान हुआ है तो बैंक और 1930 पर रिपोर्ट करें' : '4. Report to Bank and 1930 if fraud occurred'}</span>
-              <span class="text-slate-400 mt-0.5">${isHi ? 'बैंक से तुरंत खाता/कार्ड ब्लॉक करने का अनुरोध करें और पुलिस डायरी हेतु ट्रांजेक्शन नंबर नोट करें।' : 'Ask your bank to freeze compromised cards/UPI immediately and register complaint on cybercrime.gov.in.'}</span>
+              <span class="font-semibold text-slate-200">${isHi ? '4. यदि वित्तीय नुकसान हुआ है तो बैंक और 1930 पर रिपोर्ट करें' : '4. Report to Bank and 1930 if fraud occurred'}</span>
+              <span class="text-slate-400 text-[11px] mt-0.5">${isHi ? 'बैंक से तुरंत खाता/कार्ड ब्लॉक करने का अनुरोध करें और पुलिस डायरी हेतु ट्रांजेक्शन नंबर नोट करें।' : 'Direct bank to freeze compromised payment vectors immediately and retain UTR reference codes.'}</span>
             </div>
           </label>
         </div>
       </div>
 
       <!-- Evidence Preservation Standards -->
-      <div class="cyber-card p-6 sm:p-8">
-        <h3 class="text-base font-bold text-white mb-3">${t("safety_evidence_title")}</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="p-4 rounded-xl bg-[#0B1220] border border-slate-800 text-xs flex flex-col gap-2">
-            <span class="w-7 h-7 rounded-lg bg-teal-500/20 text-teal-300 font-bold flex items-center justify-center">1</span>
-            <strong class="text-slate-200">${isHi ? "स्पष्ट स्क्रीनशॉट लें" : "Capture Clear Screenshots"}</strong>
-            <p class="text-slate-400 leading-relaxed">${t("safety_evidence_p1")}</p>
+      <div class="cyber-card p-5 sm:p-6 bg-[#0D1527] border-[rgba(255,255,255,0.08)]">
+        <h3 class="text-sm font-bold text-white mb-3">${t("safety_evidence_title")}</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div class="p-3.5 rounded-lg bg-[#080C15] border border-[rgba(255,255,255,0.06)] text-xs flex flex-col gap-1.5">
+            <span class="w-6 h-6 rounded bg-emerald-500/10 text-emerald-400 font-mono-code font-bold text-xs flex items-center justify-center">01</span>
+            <strong class="text-slate-200 font-semibold">${isHi ? "स्पष्ट स्क्रीनशॉट लें" : "Capture Forensic Screenshots"}</strong>
+            <p class="text-slate-400 text-[11px] leading-relaxed">${t("safety_evidence_p1")}</p>
           </div>
 
-          <div class="p-4 rounded-xl bg-[#0B1220] border border-slate-800 text-xs flex flex-col gap-2">
-            <span class="w-7 h-7 rounded-lg bg-teal-500/20 text-teal-300 font-bold flex items-center justify-center">2</span>
-            <strong class="text-slate-200">${isHi ? "ट्रांजेक्शन UTR नंबर सहेजें" : "Save Transaction UTR"}</strong>
-            <p class="text-slate-400 leading-relaxed">${t("safety_evidence_p2")}</p>
+          <div class="p-3.5 rounded-lg bg-[#080C15] border border-[rgba(255,255,255,0.06)] text-xs flex flex-col gap-1.5">
+            <span class="w-6 h-6 rounded bg-emerald-500/10 text-emerald-400 font-mono-code font-bold text-xs flex items-center justify-center">02</span>
+            <strong class="text-slate-200 font-semibold">${isHi ? "ट्रांजेक्शन UTR नंबर सहेजें" : "Retain Transaction UTR"}</strong>
+            <p class="text-slate-400 text-[11px] leading-relaxed">${t("safety_evidence_p2")}</p>
           </div>
 
-          <div class="p-4 rounded-xl bg-[#0B1220] border border-slate-800 text-xs flex flex-col gap-2">
-            <span class="w-7 h-7 rounded-lg bg-teal-500/20 text-teal-300 font-bold flex items-center justify-center">3</span>
-            <strong class="text-slate-200">${isHi ? "चैट या कॉल हिस्ट्री न मिटाएं" : "Preserve Digital History"}</strong>
-            <p class="text-slate-400 leading-relaxed">${t("safety_evidence_p3")}</p>
+          <div class="p-3.5 rounded-lg bg-[#080C15] border border-[rgba(255,255,255,0.06)] text-xs flex flex-col gap-1.5">
+            <span class="w-6 h-6 rounded bg-emerald-500/10 text-emerald-400 font-mono-code font-bold text-xs flex items-center justify-center">03</span>
+            <strong class="text-slate-200 font-semibold">${isHi ? "चैट या कॉल हिस्ट्री न मिटाएं" : "Preserve Digital Trail"}</strong>
+            <p class="text-slate-400 text-[11px] leading-relaxed">${t("safety_evidence_p3")}</p>
           </div>
         </div>
       </div>
@@ -144,18 +149,18 @@ export function renderSafetyCenter(container) {
   // Checkbox event listeners
   container.querySelector("#check-indep").addEventListener("change", (e) => {
     store.safetyChecklist.msg_verify_independently = e.target.checked;
-    showToast(isHi ? "चेकलिस्ट अपडेट हुई" : "Checklist updated", "info");
+    showToast(isHi ? "चेकलिस्ट स्थिति अपडेट हुई" : "Checklist status updated", "info");
   });
   container.querySelector("#check-no-otp").addEventListener("change", (e) => {
     store.safetyChecklist.msg_no_otp_share = e.target.checked;
-    showToast(isHi ? "चेकलिस्ट अपडेट हुई" : "Checklist updated", "info");
+    showToast(isHi ? "चेकलिस्ट स्थिति अपडेट हुई" : "Checklist status updated", "info");
   });
   container.querySelector("#check-block").addEventListener("change", (e) => {
     store.safetyChecklist.msg_block_sender = e.target.checked;
-    showToast(isHi ? "चेकलिस्ट अपडेट हुई" : "Checklist updated", "info");
+    showToast(isHi ? "चेकलिस्ट स्थिति अपडेट हुई" : "Checklist status updated", "info");
   });
   container.querySelector("#check-report").addEventListener("change", (e) => {
     store.safetyChecklist.msg_report_cybercrime = e.target.checked;
-    showToast(isHi ? "चेकलिस्ट अपडेट हुई" : "Checklist updated", "info");
+    showToast(isHi ? "चेकलिस्ट स्थिति अपडेट हुई" : "Checklist status updated", "info");
   });
 }
