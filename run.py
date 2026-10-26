@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
 ScamSaathi Main Application Launcher
-Team: CTRL+FREAKS
 Tagline: Pause. Verify. Protect.
 """
 
@@ -26,7 +25,7 @@ from app.config import settings
 def main():
     print("=" * 60)
     print("  [SHIELD] SCAMSAATHI - AI-ASSISTED CYBERSECURITY COMPANION")
-    print("  Tagline: Pause. Verify. Protect. | Team: CTRL+FREAKS")
+    print("  Tagline: Pause. Verify. Protect. | Zero-Log Architecture")
     print("=" * 60)
     print(f"[*] Starting ScamSaathi on http://{settings.host}:{settings.port}")
     print(f"[*] API Documentation: http://{settings.host}:{settings.port}/api/docs")

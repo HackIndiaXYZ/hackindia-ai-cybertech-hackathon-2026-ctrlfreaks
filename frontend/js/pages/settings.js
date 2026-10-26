@@ -69,17 +69,6 @@ export async function renderSettings(container) {
           <div class="text-slate-400 py-3 text-center">Interrogating security subsystems...</div>
         </div>
       </div>
-
-      <!-- System Metadata -->
-      <div class="cyber-card p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#0D1527] border-[rgba(255,255,255,0.08)]">
-        <div>
-          <span class="text-xs font-bold text-white block font-mono-code">ScamSaathi Engine • v2.4.0</span>
-          <span class="text-[11px] text-slate-400">Cybersecurity Assistant & Cognitive Firewall</span>
-        </div>
-        <div class="text-[11px] text-slate-500 font-mono-code">
-          Python 3.13 // FastAPI // Tailwind // SQLite
-        </div>
-      </div>
     </div>
   `;
 

@@ -4,7 +4,6 @@ export const translations = {
   en: {
     app_name: "ScamSaathi",
     tagline: "Pause. Verify. Protect.",
-    team: "CTRL+FREAKS",
     nav_dashboard: "Dashboard",
     nav_analyzer: "Message Analyzer",
     nav_safelink: "SafeLink Protection",
@@ -148,7 +147,6 @@ export const translations = {
   hi: {
     app_name: "स्कैमसाथी (ScamSaathi)",
     tagline: "रुकें। परखें। सुरक्षित रहें।",
-    team: "CTRL+FREAKS",
     nav_dashboard: "डैशबोर्ड",
     nav_analyzer: "संदेश विश्लेषक",
     nav_safelink: "सेफ़लिंक सुरक्षा",

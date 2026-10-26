@@ -106,7 +106,7 @@ def generate_scam_dna(
     sanitized_export = (
         f"════════════════════════════════════════════════\n"
         f"  SCAMSAATHI — SCAM DNA FINGERPRINT\n"
-        f"  Tagline: Pause. Verify. Protect. | Team CTRL+FREAKS\n"
+        f"  Tagline: Pause. Verify. Protect. | Zero-Retention Architecture\n"
         f"════════════════════════════════════════════════\n"
         f"ID: {dna_id}\n"
         f"Risk Level: {risk_level} (Score: {risk_score}/100)\n"

@@ -38,9 +38,9 @@
   </script>
 
   <!-- Custom Theme Styles -->
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/styles.css?v=2.4.1" />
 </head>
-<body class="bg-[#0B1220] text-slate-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-slate-950">
+<body class="bg-[#080C15] text-slate-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-slate-950 font-sans antialiased">
 
   <!-- Fixed Top Navbar Container -->
   <div id="navbar-container"></div>
@@ -48,7 +48,7 @@
   <!-- Main Application Body: Sidebar + Dynamic Content -->
   <div class="flex-1 flex w-full relative">
     <!-- Desktop Sidebar / Mobile Drawer -->
-    <aside id="app-sidebar" class="hidden lg:block w-72 flex-shrink-0 z-30 fixed lg:sticky top-[61px] h-[calc(100vh-61px)] overflow-y-auto bg-[#111C2E] border-r border-[#1E314B]">
+    <aside id="app-sidebar" class="hidden lg:block w-64 flex-shrink-0 z-30 fixed lg:sticky top-[57px] h-[calc(100vh-57px)] overflow-y-auto bg-[#0C1220] border-r border-[rgba(255,255,255,0.08)]">
       <!-- Populated dynamically by sidebar.js -->
     </aside>
 
@@ -70,6 +70,6 @@
   <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
 
   <!-- Application Bootstrap -->
-  <script type="module" src="js/app.js"></script>
+  <script type="module" src="js/app.js?v=2.4.1"></script>
 </body>
 </html>

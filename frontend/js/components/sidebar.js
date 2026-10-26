@@ -79,18 +79,6 @@ export function renderSidebar(container) {
           `;
         }).join("")}
       </div>
-
-      <!-- Clean Minimal Footer Status -->
-      <div class="mt-6 pt-3 border-t border-[rgba(255,255,255,0.06)] flex items-center justify-between px-2">
-        <div class="flex items-center gap-2">
-          <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
-          <span class="text-[11px] text-slate-400 font-medium">Shield Core</span>
-        </div>
-        <span class="text-[10px] text-slate-500 font-mono-code">v2.4</span>
-      </div>
     </nav>
   `;
 
