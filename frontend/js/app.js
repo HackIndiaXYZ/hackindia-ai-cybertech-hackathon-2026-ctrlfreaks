@@ -1,19 +1,19 @@
 // ScamSaathi Master Application Router & Bootstrapper
 
-import { store } from "./store.js?v=2.4.1";
-import { api } from "./api.js?v=2.4.1";
-import { renderNavbar } from "./components/navbar.js?v=2.4.1";
-import { renderSidebar } from "./components/sidebar.js?v=2.4.1";
+import { store } from "./store.js";
+import { api } from "./api.js";
+import { renderNavbar } from "./components/navbar.js";
+import { renderSidebar } from "./components/sidebar.js";
 
-import { renderDashboard } from "./pages/dashboard.js?v=2.4.1";
-import { renderMessageAnalyzer } from "./pages/messageAnalyzer.js?v=2.4.1";
-import { renderSafeLink } from "./pages/safeLink.js?v=2.4.1";
-import { renderScamDNA } from "./pages/scamDNA.js?v=2.4.1";
-import { renderHoneyShield } from "./pages/honeyShield.js?v=2.4.1";
-import { renderSafetyCenter } from "./pages/safetyCenter.js?v=2.4.1";
-import { renderTrustedContacts } from "./pages/trustedContacts.js?v=2.4.1";
-import { renderPrivacyCenter } from "./pages/privacyCenter.js?v=2.4.1";
-import { renderSettings } from "./pages/settings.js?v=2.4.1";
+import { renderDashboard } from "./pages/dashboard.js";
+import { renderMessageAnalyzer } from "./pages/messageAnalyzer.js";
+import { renderSafeLink } from "./pages/safeLink.js";
+import { renderScamDNA } from "./pages/scamDNA.js";
+import { renderHoneyShield } from "./pages/honeyShield.js";
+import { renderSafetyCenter } from "./pages/safetyCenter.js";
+import { renderTrustedContacts } from "./pages/trustedContacts.js";
+import { renderPrivacyCenter } from "./pages/privacyCenter.js";
+import { renderSettings } from "./pages/settings.js";
 
 const PAGE_RENDERERS = {
   dashboard: renderDashboard,
