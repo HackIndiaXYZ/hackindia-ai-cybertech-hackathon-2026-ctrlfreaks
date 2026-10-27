@@ -57,8 +57,17 @@ if FRONTEND_DIR.exists():
     app.mount("/js", StaticFiles(directory=str(FRONTEND_DIR / "js")), name="js")
     
     @app.get("/")
+    @app.get("/index.html")
     async def serve_index():
-        return FileResponse(str(FRONTEND_DIR / "index.html"))
+        return FileResponse(
+            str(FRONTEND_DIR / "index.html"),
+            headers={"Cache-Control": "no-cache, no-store, must-revalidate"}
+        )
+
+    @app.get("/favicon.ico")
+    async def serve_favicon():
+        from fastapi.responses import Response
+        return Response(status_code=204)
 
 
 @app.on_event("startup")

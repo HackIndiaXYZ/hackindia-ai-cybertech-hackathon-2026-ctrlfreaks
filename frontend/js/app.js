@@ -44,7 +44,11 @@ function routeCurrentView() {
   }
 
   // Render view
-  renderer(contentArea);
+  try {
+    renderer(contentArea);
+  } catch (err) {
+    console.error("View rendering error:", err);
+  }
 
   // Re-render sidebar to highlight active item
   const sidebarContainer = document.getElementById("app-sidebar");

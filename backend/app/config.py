@@ -24,7 +24,7 @@ class Settings(BaseModel):
     app_name: str = "ScamSaathi"
     app_version: str = "2.4.0"
     environment: str = os.getenv("ENVIRONMENT", "development")
-    host: str = os.getenv("HOST", "127.0.0.1")
+    host: str = os.getenv("HOST", "0.0.0.0")
     port: int = int(os.getenv("PORT", "8000"))
     
     # Feature flags & provider configs
