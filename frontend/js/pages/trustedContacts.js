@@ -350,10 +350,6 @@ export async function renderTrustedContacts(container) {
           ` : ''}
         </div>
       `;
-            </div>
-          ` : ''}
-        </div>
-      `;
 
       const statusArea = container.querySelector("#sos-status-area");
       if (statusArea) {
