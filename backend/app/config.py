@@ -59,6 +59,19 @@ class Settings(BaseModel):
 
     @property
     def has_real_email(self) -> bool:
+        if not (self.smtp_host and self.smtp_user and self.smtp_password):
+            try:
+                from .database import get_setting
+                db_user = get_setting("SMTP_USER", "")
+                db_pass = get_setting("SMTP_PASSWORD", "")
+                if db_user and db_pass:
+                    self.smtp_host = get_setting("SMTP_HOST", "smtp.gmail.com")
+                    self.smtp_port = int(get_setting("SMTP_PORT", "587"))
+                    self.smtp_user = db_user
+                    self.smtp_password = db_pass
+            except Exception:
+                pass
         return bool(self.smtp_host and self.smtp_user and self.smtp_password)
 
 settings = Settings()
+

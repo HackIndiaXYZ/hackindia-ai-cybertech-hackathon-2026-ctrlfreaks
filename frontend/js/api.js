@@ -84,6 +84,14 @@ export const api = {
       body: JSON.stringify(data)
     }),
 
+  getSMTPConfig: () => request("/api/contacts/config/smtp"),
+
+  saveSMTPConfig: (data) =>
+    request("/api/contacts/config/smtp", {
+      method: "POST",
+      body: JSON.stringify(data)
+    }),
+
   // Privacy Center
   getPrivacyStatus: () => request("/api/privacy/status"),
   clearSessionPrivacy: () => request("/api/privacy/clear", { method: "POST" })

@@ -79,3 +79,19 @@ def delete_contact(contact_id: int) -> bool:
     deleted = cursor.rowcount > 0
     conn.close()
     return deleted
+
+def set_setting(key: str, value: str):
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("INSERT OR REPLACE INTO app_settings (key, value) VALUES (?, ?)", (key, value))
+    conn.commit()
+    conn.close()
+
+def get_setting(key: str, default: str = "") -> str:
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT value FROM app_settings WHERE key = ?", (key,))
+    row = cursor.fetchone()
+    conn.close()
+    return row[0] if row else default
+

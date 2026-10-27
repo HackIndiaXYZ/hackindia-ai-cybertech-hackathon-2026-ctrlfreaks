@@ -169,3 +169,15 @@ class SOSTriggerResponse(BaseModel):
     notice: str
     channels_dispatched: Optional[Dict[str, Any]] = None
     action_links: Optional[List[Dict[str, Any]]] = None
+
+class SMTPConfigRequest(BaseModel):
+    smtp_host: str = "smtp.gmail.com"
+    smtp_port: int = 587
+    smtp_user: str
+    smtp_password: str
+    smtp_from_email: Optional[str] = None
+    send_test_email: bool = False
+
+class SMTPConfigResponse(BaseModel):
+    success: bool
+    message: str
