@@ -53,35 +53,12 @@ export function renderAIChatWidget(container) {
         </div>
 
         <div class="flex items-center gap-1">
-          <button id="ai-chat-config-btn" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.05] transition-colors" title="Configure Free AI Key (Groq / Gemini)">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-            </svg>
-          </button>
           <button id="ai-chat-close-btn" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.05] transition-colors" title="Close">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>
           </button>
         </div>
-      </div>
-
-      <!-- Quick AI Key Setup Tray (Collapsible) -->
-      <div id="ai-config-tray" style="display: none;" class="p-3 bg-[#080C15] border-b border-[rgba(255,255,255,0.08)] text-xs flex-col gap-2 animate-fade-in">
-        <div class="flex items-center justify-between">
-          <span class="font-bold text-teal-300 text-[11px]">Free AI Provider Setup</span>
-          <a href="https://console.groq.com/keys" target="_blank" class="text-[10px] text-emerald-400 underline hover:text-emerald-300">Get Free Groq Key</a>
-        </div>
-        <div class="flex gap-2">
-          <select id="ai-prov-select" class="p-1.5 rounded bg-[#10182B] border border-slate-700 text-[11px] text-white">
-            <option value="groq">Groq (Llama-3.3 70B - Free)</option>
-            <option value="gemini">Google Gemini (Flash)</option>
-          </select>
-          <input id="ai-key-input" type="password" class="flex-1 p-1.5 rounded bg-[#10182B] border border-slate-700 text-[11px] text-white font-mono-code" placeholder="Paste gsk_... or AIza... key"/>
-        </div>
-        <button id="ai-key-save-btn" class="px-3 py-1 rounded text-xs font-bold bg-emerald-500 hover:bg-emerald-400 text-slate-950 transition-colors">
-          Connect Free AI Key
-        </button>
       </div>
 
       <!-- Messages Stream -->
@@ -137,11 +114,6 @@ export function renderAIChatWidget(container) {
   const launcher = wrapper.querySelector("#ai-chat-launcher");
   const chatWindow = wrapper.querySelector("#ai-chat-window");
   const closeBtn = wrapper.querySelector("#ai-chat-close-btn");
-  const configBtn = wrapper.querySelector("#ai-chat-config-btn");
-  const configTray = wrapper.querySelector("#ai-config-tray");
-  const keyInput = wrapper.querySelector("#ai-key-input");
-  const provSelect = wrapper.querySelector("#ai-prov-select");
-  const keySaveBtn = wrapper.querySelector("#ai-key-save-btn");
   const inputEl = wrapper.querySelector("#ai-chat-input");
   const sendBtn = wrapper.querySelector("#ai-chat-send-btn");
   const messagesBox = wrapper.querySelector("#ai-chat-messages");
@@ -155,11 +127,12 @@ export function renderAIChatWidget(container) {
         badgeEl.textContent = `● ${cfg.active_provider}`;
         badgeEl.className = "text-[10px] text-emerald-400 font-mono-code font-semibold";
       } else {
-        badgeEl.textContent = "● Free Local Forensics Engine";
-        badgeEl.className = "text-[10px] text-teal-400 font-mono-code";
+        badgeEl.textContent = "● Groq AI Active";
+        badgeEl.className = "text-[10px] text-emerald-400 font-mono-code font-semibold";
       }
     } catch {
-      badgeEl.textContent = "● Local Engine Active";
+      badgeEl.textContent = "● Groq AI Active";
+      badgeEl.className = "text-[10px] text-emerald-400 font-mono-code font-semibold";
     }
   }
   updateBadge();
@@ -190,39 +163,6 @@ export function renderAIChatWidget(container) {
     e.stopPropagation();
     isOpen = false;
     chatWindow.style.display = "none";
-  });
-
-  // Toggle Config Tray
-  configBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    isConfigOpen = !isConfigOpen;
-    configTray.style.display = isConfigOpen ? "flex" : "none";
-  });
-
-  // Save AI Key
-  keySaveBtn.addEventListener("click", async () => {
-    const prov = provSelect.value;
-    const key = keyInput.value.trim();
-    if (!key) {
-      showToast("Please paste an API key", "warning");
-      return;
-    }
-    keySaveBtn.disabled = true;
-    keySaveBtn.textContent = "Testing & Connecting...";
-
-    try {
-      const res = await api.saveAIConfig(prov, key);
-      showToast(res.message, "success");
-      configTray.style.display = "none";
-      isConfigOpen = false;
-      updateBadge();
-    } catch (err) {
-      showToast(err.message || "Failed to connect AI key", "error");
-    } finally {
-      keySaveBtn.disabled = false;
-      keySaveBtn.textContent = "Connect Free AI Key";
-    }
   });
 
   // Send message function

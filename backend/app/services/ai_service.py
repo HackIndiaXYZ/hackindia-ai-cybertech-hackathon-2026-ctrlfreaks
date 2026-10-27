@@ -7,42 +7,45 @@ from .message_analyzer import analyze_message_content
 from ..models.schemas import MessageAnalyzeResponse, PsychologicalTactic
 
 def _call_groq_api(messages: List[Dict[str, str]], json_mode: bool = False) -> Optional[str]:
-    """Calls Groq Free API using Llama-3.3-70b-versatile or Llama-3.1-8b-instant."""
+    """Calls Groq API using available high-performance models (Qwen-3.8 27B / GPT-OSS 120B / Llama)."""
     if not settings.groq_api_key:
         return None
 
     url = "https://api.groq.com/openai/v1/chat/completions"
-    payload = {
-        "model": "llama-3.3-70b-versatile",
-        "messages": messages,
-        "temperature": 0.2,
-        "max_tokens": 800
-    }
-    if json_mode:
-        payload["response_format"] = {"type": "json_object"}
+    candidate_models = [
+        "qwen/qwen3.8-27b",
+        "openai/gpt-oss-120b",
+        "openai/gpt-oss-20b",
+        "llama-3.3-70b-versatile",
+        "llama-3.1-8b-instant"
+    ]
 
-    data = json.dumps(payload).encode("utf-8")
-    req = urllib.request.Request(url, data=data, method="POST")
-    req.add_header("Authorization", f"Bearer {settings.groq_api_key}")
-    req.add_header("Content-Type", "application/json")
+    for model_name in candidate_models:
+        payload = {
+            "model": model_name,
+            "messages": messages,
+            "temperature": 0.2,
+            "max_tokens": 800
+        }
+        if json_mode:
+            payload["response_format"] = {"type": "json_object"}
 
-    try:
-        with urllib.request.urlopen(req, timeout=12) as response:
-            res_json = json.loads(response.read().decode("utf-8"))
-            return res_json["choices"][0]["message"]["content"]
-    except Exception as e:
-        # Fallback to smaller fast model if 70b has rate limit
         try:
-            payload["model"] = "llama-3.1-8b-instant"
             data = json.dumps(payload).encode("utf-8")
             req = urllib.request.Request(url, data=data, method="POST")
             req.add_header("Authorization", f"Bearer {settings.groq_api_key}")
             req.add_header("Content-Type", "application/json")
-            with urllib.request.urlopen(req, timeout=10) as response:
+            req.add_header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ScamSaathi/2.4")
+
+            with urllib.request.urlopen(req, timeout=12) as response:
                 res_json = json.loads(response.read().decode("utf-8"))
-                return res_json["choices"][0]["message"]["content"]
+                content = res_json["choices"][0]["message"]["content"]
+                if content:
+                    return content
         except Exception:
-            return None
+            continue
+
+    return None
 
 def _call_gemini_api(prompt: str, json_mode: bool = False) -> Optional[str]:
     """Calls Google Gemini API (gemini-1.5-flash) using standard urllib."""

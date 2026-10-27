@@ -67,7 +67,7 @@ class Settings(BaseModel):
     @property
     def active_ai_provider(self) -> str:
         if self.groq_api_key:
-            return "Groq (Llama-3.3 70B)"
+            return "Groq AI (Ultra Fast CyberGuard)"
         if self.gemini_api_key:
             return "Google Gemini (1.5 Flash)"
         if self.openai_api_key:
