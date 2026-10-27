@@ -150,8 +150,8 @@ class SOSPreviewRequest(BaseModel):
 class SOSPreviewResponse(BaseModel):
     preview_message: str
     recipient_count: int
-    recipients: List[Dict[str, str]]
-    provider_mode: str  # "DEMO_SIMULATION" or "TWILIO_CONFIGURED"
+    recipients: List[Dict[str, Any]]
+    provider_mode: str  # "DEMO_SIMULATION", "LIVE_EMAIL", "TWILIO_CONFIGURED", etc.
     privacy_guarantee: str
 
 class SOSTriggerRequest(BaseModel):
@@ -167,3 +167,5 @@ class SOSTriggerResponse(BaseModel):
     message_delivered: str
     timestamp: str
     notice: str
+    channels_dispatched: Optional[Dict[str, Any]] = None
+    action_links: Optional[List[Dict[str, Any]]] = None

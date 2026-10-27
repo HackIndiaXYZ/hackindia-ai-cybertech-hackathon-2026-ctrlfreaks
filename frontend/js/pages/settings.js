@@ -135,6 +135,19 @@ export async function renderSettings(container) {
             ${ig.sms_provider.configured ? 'CONNECTED' : 'LOCAL SANDBOX'}
           </span>
         </div>
+
+        <div class="flex items-center justify-between p-3 rounded-lg bg-[#080C15] border border-[rgba(255,255,255,0.06)]">
+          <div class="flex items-center gap-2.5">
+            <span class="w-2 h-2 rounded-full ${ig.email_provider && ig.email_provider.configured ? 'bg-emerald-400' : 'bg-slate-400'}"></span>
+            <div>
+              <strong class="text-slate-200 block text-xs">Emergency Email Gateway</strong>
+              <span class="text-[11px] text-slate-400 font-mono-code">${ig.email_provider ? ig.email_provider.name : 'Direct Client Dispatch'}</span>
+            </div>
+          </div>
+          <span class="badge-subtle ${ig.email_provider && ig.email_provider.configured ? 'badge-emerald' : 'badge-neutral'}">
+            ${ig.email_provider && ig.email_provider.configured ? 'CONNECTED' : 'CLIENT DISPATCH'}
+          </span>
+        </div>
       `;
     } catch (err) {
       diagContainer.innerHTML = `

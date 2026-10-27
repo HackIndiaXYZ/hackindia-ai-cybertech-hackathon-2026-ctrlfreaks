@@ -22,6 +22,10 @@ def get_health():
             "sms_provider": {
                 "configured": settings.has_real_sms,
                 "name": "Twilio SMS" if settings.has_real_sms else "Safe Simulation Demo Mode"
+            },
+            "email_provider": {
+                "configured": settings.has_real_email,
+                "name": f"SMTP ({settings.smtp_host})" if settings.has_real_email else "Direct 1-Click Client Dispatch"
             }
         }
     }
