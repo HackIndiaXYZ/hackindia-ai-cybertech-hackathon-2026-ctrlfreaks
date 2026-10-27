@@ -266,14 +266,22 @@ export async function renderTrustedContacts(container) {
       if (channels.email) {
         if (channels.email.success) {
           emailStatusText = `
-            <div class="p-3 rounded-lg bg-emerald-950/40 border border-emerald-500/50 text-emerald-300 font-bold text-xs flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-              <span>${channels.email.detail}</span>
+            <div class="p-4 rounded-xl bg-emerald-950/60 border border-emerald-500/60 text-emerald-300 text-xs flex items-start gap-3 shadow-lg">
+              <svg class="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <div class="flex-1">
+                <div class="font-bold text-sm text-white">Direct Automatic Email Dispatched Successfully!</div>
+                <div class="text-[12px] text-emerald-300 mt-1">${channels.email.detail}</div>
+                <div class="text-[11px] text-slate-300 mt-1.5 p-2 rounded-lg bg-black/30 border border-emerald-500/20">
+                  📩 <strong>Alert Sent:</strong> Email aapke trusted contacts ko server se direct send ho chuki hai. Agar primary inbox me na dikhe to <strong>Spam / All Mail</strong> folder zaroor check karein.
+                </div>
+              </div>
             </div>
           `;
         } else {
           emailStatusText = `
-            <div class="p-2.5 rounded-lg bg-[#080C15] border border-amber-500/30 text-amber-300 text-[11px]">
+            <div class="p-3 rounded-lg bg-[#080C15] border border-amber-500/30 text-amber-300 text-xs">
               ⚠️ <strong>Backend Email:</strong> ${channels.email.detail}
             </div>
           `;
@@ -304,12 +312,12 @@ export async function renderTrustedContacts(container) {
           ${emailStatusText}
           ${smsStatusText}
 
-          <!-- Direct Instant Action Links -->
+          <!-- Optional Secondary Instant Action Links (WhatsApp / SMS) -->
           ${links.length > 0 ? `
-            <div>
+            <div class="pt-2">
               <div class="text-[11px] font-bold uppercase tracking-wider text-teal-400 mb-2 flex items-center justify-between">
-                <span>1-Click Direct Messaging:</span>
-                <span class="text-[10px] text-slate-400 font-normal">Click to send from your device immediately</span>
+                <span>Optional Secondary Dispatch (WhatsApp / SMS):</span>
+                <span class="text-[10px] text-slate-400 font-normal">Direct WhatsApp alert if immediate response is needed</span>
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 ${links.map(l => `
@@ -321,12 +329,12 @@ export async function renderTrustedContacts(container) {
                     <div class="flex items-center gap-2 pt-1.5 border-t border-[rgba(255,255,255,0.06)]">
                       ${l.whatsapp_url ? `
                         <a href="${l.whatsapp_url}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-md text-xs font-bold bg-emerald-500 hover:bg-emerald-400 text-slate-950 transition-colors flex items-center gap-1">
-                          <span>WhatsApp</span>
+                          <span>WhatsApp Alert</span>
                         </a>
                       ` : ''}
-                      ${l.mailto_url ? `
+                      ${!channels.email?.success && l.mailto_url ? `
                         <a href="${l.mailto_url}" class="px-3 py-1.5 rounded-md text-xs font-bold bg-teal-500/20 hover:bg-teal-500/30 text-teal-300 border border-teal-500/30 transition-colors flex items-center gap-1">
-                          <span>Email Client</span>
+                          <span>Open Email App</span>
                         </a>
                       ` : ''}
                       ${l.sms_url ? `
@@ -338,6 +346,10 @@ export async function renderTrustedContacts(container) {
                   </div>
                 `).join("")}
               </div>
+            </div>
+          ` : ''}
+        </div>
+      `;
             </div>
           ` : ''}
         </div>

@@ -67,13 +67,7 @@ def _send_smtp_email(recipient_emails: List[str], subject: str, message: str) ->
     """
 
     try:
-        msg = MIMEMultipart("alternative")
-        msg["Subject"] = subject
-        msg["From"] = f"ScamSaathi Alert <{from_addr}>"
-        msg["To"] = ", ".join(recipient_emails)
-
-        msg.attach(MIMEText(message, "plain", "utf-8"))
-        msg.attach(MIMEText(html_body, "html", "utf-8"))
+        from email.utils import formatdate, make_msgid
 
         if settings.smtp_port == 465:
             server = smtplib.SMTP_SSL(settings.smtp_host, settings.smtp_port, timeout=12)
@@ -84,9 +78,30 @@ def _send_smtp_email(recipient_emails: List[str], subject: str, message: str) ->
             server.ehlo()
 
         server.login(settings.smtp_user, settings.smtp_password)
-        server.sendmail(from_addr, recipient_emails, msg.as_string())
+
+        valid_recipients = [e for e in recipient_emails if not e.endswith("@example.com")]
+        if not valid_recipients:
+            valid_recipients = recipient_emails
+
+        delivered = []
+        for to_addr in valid_recipients:
+            msg = MIMEMultipart("alternative")
+            msg["Subject"] = subject
+            msg["From"] = f"ScamSaathi Security Alert <{from_addr}>"
+            msg["To"] = to_addr
+            msg["Date"] = formatdate(localtime=True)
+            msg["Message-ID"] = make_msgid(domain="scamsaathi.local")
+            msg["X-Priority"] = "1"
+            msg["Importance"] = "High"
+
+            msg.attach(MIMEText(message, "plain", "utf-8"))
+            msg.attach(MIMEText(html_body, "html", "utf-8"))
+
+            server.sendmail(from_addr, [to_addr], msg.as_string())
+            delivered.append(to_addr)
+
         server.quit()
-        return True, f"Real Email dispatched to: {', '.join(recipient_emails)}"
+        return True, f"Real Email dispatched directly to inbox: {', '.join(delivered)}"
     except Exception as e:
         return False, f"SMTP delivery error: {str(e)}"
 
