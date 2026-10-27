@@ -102,8 +102,10 @@ PATTERNS = {
         "name_hi": "गोपनीय डेटा और वित्तीय दबाव (Credential Theft)",
         "patterns": [
             r"\b(otp|pin|upi pin|password|cvv|card details|net banking|send money|pay rs|transfer rs|processing fee|registration fee|refundable fee)\b",
-            r"\b(otp share|pin dalein|paisa transfer|khata number|shulk jama karein)\b",
-            r"(ओटीपी|पिन|यूपीआई पिन|पासवर्ड|सीवीवी|पैसे ट्रांसफर|शुल्क|ओटीपी बताएं)"
+            r"\b(send\s+(?:me\s+)?(?:\d+\s*(?:rs|rupees|inr|cash|bucks)?|money|funds|amount)|pay\s+\d+|transfer\s+\d+|deposit\s+\d+)\b",
+            r"\b(send\s+.*?\s+(?:on|to|via)\s+(?:this|the|given)?\s*link)\b",
+            r"\b(otp share|pin dalein|paisa transfer|khata number|shulk jama karein|paise bhejo|paise daalo|transfer karo|bhejo)\b",
+            r"(ओटीपी|पिन|यूपीआई पिन|पासवर्ड|सीवीवी|पैसे ट्रांसफर|शुल्क|ओटीपी बताएं|पैसे भेजो|पैसे डालो|रुपये भेजो)"
         ],
         "explanation_en": "Directly requests sensitive authentication credentials or money transfers.",
         "explanation_hi": "ओटीपी, यूपीआई पिन या सीधे पैसे ट्रांसफर करने की संवेदनशील मांग।",
@@ -112,7 +114,25 @@ PATTERNS = {
         "counter_en": "NEVER share an OTP or enter your UPI PIN to receive money. UPI PIN is solely required to DEDUCT money from your account.",
         "counter_hi": "पैसे प्राप्त करने के लिए कभी यूपीआई पिन न डालें। पिन केवल पैसे भेजने के लिए होता है।",
         "severity": "critical",
-        "weight": 32
+        "weight": 35
+    },
+    "link_coercion": {
+        "id": "tactic_link_coercion",
+        "name_en": "External Link Coercion",
+        "name_hi": "संदिग्ध लिंक पर जाने का दबाव (Link Coercion)",
+        "patterns": [
+            r"\b((?:on|click|open|visit|use|check)\s+(?:this|the|given|below)?\s*(?:link|url|portal|site|page|website))\b",
+            r"\b((?:is|ye|iss)\s*(?:link|portal)\s*(?:par|pe|kholo|click karo))\b",
+            r"(इस लिंक|लिंक पर|लिंक खोलो|क्लिक करें|यहाँ क्लिक करें)"
+        ],
+        "explanation_en": "Directs you to an unverified external link to capture payments, credentials, or personal information.",
+        "explanation_hi": "भुगतान, क्रेडेंशियल्स या डेटा चुराने के लिए असत्यापित बाहरी लिंक पर जाने के लिए कहा जाता है।",
+        "why_effective_en": "Links bypass standard security apps by taking users to spoofed web forms.",
+        "why_effective_hi": "लिंक के जरिए यूजर को नकली वेबसाइट पर ले जाकर ठगी की जाती है।",
+        "counter_en": "Never click unverified links demanding money or logins. Navigate directly to official bank apps.",
+        "counter_hi": "पैसे या लॉगिन मांगने वाले किसी भी लिंक पर क्लिक न करें। हमेशा आधिकारिक बैंक ऐप का उपयोग करें।",
+        "severity": "high",
+        "weight": 25
     },
     "tech_deception": {
         "id": "tactic_tech",

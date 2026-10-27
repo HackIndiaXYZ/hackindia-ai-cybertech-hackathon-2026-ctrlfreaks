@@ -4,6 +4,7 @@ import { store } from "./store.js";
 import { api } from "./api.js";
 import { renderNavbar } from "./components/navbar.js";
 import { renderSidebar } from "./components/sidebar.js";
+import { renderAIChatWidget } from "./components/aiChatWidget.js";
 
 import { renderDashboard } from "./pages/dashboard.js";
 import { renderMessageAnalyzer } from "./pages/messageAnalyzer.js";
@@ -102,6 +103,9 @@ export function initApp() {
 
   // Initial render
   routeCurrentView();
+
+  // Render floating AI Chatbot Assistant
+  renderAIChatWidget(document.body);
 
   // Test backend connectivity
   checkBackendConnectivity();

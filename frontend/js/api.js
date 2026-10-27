@@ -92,6 +92,21 @@ export const api = {
       body: JSON.stringify(data)
     }),
 
+  // AI Assistant & Copilot
+  sendAIChat: (message, history = [], language = "en") =>
+    request("/api/ai/chat", {
+      method: "POST",
+      body: JSON.stringify({ message, history, language })
+    }),
+
+  getAIConfig: () => request("/api/ai/config"),
+
+  saveAIConfig: (provider, api_key) =>
+    request("/api/ai/config", {
+      method: "POST",
+      body: JSON.stringify({ provider, api_key })
+    }),
+
   // Privacy Center
   getPrivacyStatus: () => request("/api/privacy/status"),
   clearSessionPrivacy: () => request("/api/privacy/clear", { method: "POST" })

@@ -13,7 +13,7 @@ def get_health():
         "integrations": {
             "ai_provider": {
                 "configured": settings.has_ai_credentials,
-                "name": settings.ai_provider if settings.has_ai_credentials else "Local Deterministic Heuristics Fallback"
+                "name": settings.active_ai_provider
             },
             "safe_browsing": {
                 "configured": settings.has_safe_browsing,

@@ -7,7 +7,7 @@ from fastapi.responses import FileResponse
 
 from .config import settings
 from .database import init_db
-from .routers import health, analyze, safelink, dna, honeyshield, contacts, privacy
+from .routers import health, analyze, safelink, dna, honeyshield, contacts, privacy, ai_chat
 
 # Initialize database schema
 init_db()
@@ -48,6 +48,7 @@ app.include_router(dna.router)
 app.include_router(honeyshield.router)
 app.include_router(contacts.router)
 app.include_router(privacy.router)
+app.include_router(ai_chat.router)
 
 # Mount Frontend static files
 FRONTEND_DIR = Path(__file__).parent.parent.parent / "frontend"

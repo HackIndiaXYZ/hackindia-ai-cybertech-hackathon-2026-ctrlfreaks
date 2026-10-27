@@ -53,6 +53,43 @@ export async function renderSettings(container) {
         </div>
       </div>
 
+      <!-- Free AI Engine Setup Card (Groq / Gemini) -->
+      <div class="cyber-card p-5 sm:p-6 bg-[#0D1527] border-[rgba(255,255,255,0.08)]">
+        <div class="flex items-center justify-between pb-3.5 mb-3.5 border-b border-[rgba(255,255,255,0.08)]">
+          <div>
+            <h2 class="text-sm font-bold text-white">AI Cognitive Analysis Engine (Free API Key)</h2>
+            <span class="text-[11px] text-slate-400">Supercharge Message Analyzer & Saathi AI with Groq (Llama-3.3 70B) or Google Gemini</span>
+          </div>
+          <span id="settings-ai-active-pill" class="badge-subtle badge-neutral font-mono-code">
+            CHECKING...
+          </span>
+        </div>
+
+        <div class="p-3.5 rounded-lg bg-[#080C15] border border-[rgba(255,255,255,0.06)] text-xs flex flex-col gap-3">
+          <p class="text-[11px] text-slate-300 leading-relaxed">
+            Groq ya Gemini ki free key lagane se aapka Message Analyzer aur Saathi AI floating chatbot dono live AI par chalne lagenge. Free Groq key 10 seconds me <a href="https://console.groq.com/keys" target="_blank" class="text-teal-400 underline">console.groq.com/keys</a> se le sakte hain.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            <div>
+              <label class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Provider</label>
+              <select id="settings-ai-prov" class="w-full p-2.5 rounded-lg bg-[#10182B] border border-slate-700 text-xs text-white">
+                <option value="groq">Groq (Llama-3.3 70B - Free & Fast)</option>
+                <option value="gemini">Google Gemini (Flash)</option>
+              </select>
+            </div>
+            <div class="sm:col-span-2">
+              <label class="text-[10px] uppercase font-bold text-slate-400 block mb-1">API Key *</label>
+              <input id="settings-ai-key" type="password" class="w-full p-2.5 rounded-lg bg-[#10182B] border border-slate-700 text-xs text-white font-mono-code" placeholder="Paste gsk_... or AIza... key here"/>
+            </div>
+          </div>
+          <div class="flex justify-end pt-1">
+            <button id="settings-save-ai-btn" class="px-5 py-2 rounded-lg text-xs font-bold bg-emerald-500 hover:bg-emerald-400 text-slate-950 transition-colors">
+              Save & Connect AI Engine
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- Backend Diagnostic Checklist -->
       <div class="cyber-card p-5 sm:p-6 bg-[#0D1527] border-[rgba(255,255,255,0.08)]">
         <div class="flex items-center justify-between pb-3.5 mb-3.5 border-b border-[rgba(255,255,255,0.08)]">
@@ -84,6 +121,48 @@ export async function renderSettings(container) {
     if (getLanguage() !== "hi") {
       setLanguage("hi");
       window.location.reload();
+    }
+  });
+
+  // AI Config Status & Save Handler
+  async function refreshAIStatus() {
+    const pill = container.querySelector("#settings-ai-active-pill");
+    if (!pill) return;
+    try {
+      const cfg = await api.getAIConfig();
+      if (cfg.configured) {
+        pill.textContent = cfg.active_provider.toUpperCase();
+        pill.className = "badge-subtle badge-emerald font-mono-code";
+      } else {
+        pill.textContent = "LOCAL FORENSICS ENGINE";
+        pill.className = "badge-subtle badge-neutral font-mono-code";
+      }
+    } catch {
+      pill.textContent = "LOCAL ENGINE";
+    }
+  }
+  refreshAIStatus();
+
+  const saveAiBtn = container.querySelector("#settings-save-ai-btn");
+  saveAiBtn.addEventListener("click", async () => {
+    const prov = container.querySelector("#settings-ai-prov").value;
+    const key = container.querySelector("#settings-ai-key").value.trim();
+    if (!key) {
+      showToast("Please enter an API key", "warning");
+      return;
+    }
+    saveAiBtn.disabled = true;
+    saveAiBtn.textContent = "Verifying API Key...";
+    try {
+      const res = await api.saveAIConfig(prov, key);
+      showToast(res.message, "success");
+      refreshAIStatus();
+      loadDiagnostics();
+    } catch (err) {
+      showToast(err.message || "Failed to verify API key", "error");
+    } finally {
+      saveAiBtn.disabled = false;
+      saveAiBtn.textContent = "Save & Connect AI Engine";
     }
   });
 

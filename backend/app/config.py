@@ -31,6 +31,7 @@ class Settings(BaseModel):
     ai_provider: str = os.getenv("AI_PROVIDER", "none")
     openai_api_key: str = os.getenv("OPENAI_API_KEY", "")
     gemini_api_key: str = os.getenv("GEMINI_API_KEY", "")
+    groq_api_key: str = os.getenv("GROQ_API_KEY", "")
     safe_browsing_api_key: str = os.getenv("GOOGLE_SAFE_BROWSING_API_KEY", "")
     
     # Twilio SMS Provider
@@ -47,7 +48,31 @@ class Settings(BaseModel):
 
     @property
     def has_ai_credentials(self) -> bool:
-        return bool(self.openai_api_key or self.gemini_api_key)
+        if not (self.groq_api_key or self.gemini_api_key or self.openai_api_key):
+            try:
+                from .database import get_setting
+                db_groq = get_setting("GROQ_API_KEY", "")
+                db_gemini = get_setting("GEMINI_API_KEY", "")
+                db_openai = get_setting("OPENAI_API_KEY", "")
+                if db_groq:
+                    self.groq_api_key = db_groq
+                if db_gemini:
+                    self.gemini_api_key = db_gemini
+                if db_openai:
+                    self.openai_api_key = db_openai
+            except Exception:
+                pass
+        return bool(self.groq_api_key or self.gemini_api_key or self.openai_api_key)
+
+    @property
+    def active_ai_provider(self) -> str:
+        if self.groq_api_key:
+            return "Groq (Llama-3.3 70B)"
+        if self.gemini_api_key:
+            return "Google Gemini (1.5 Flash)"
+        if self.openai_api_key:
+            return "OpenAI (GPT-4o)"
+        return "Deterministic Local Heuristics"
 
     @property
     def has_safe_browsing(self) -> bool:
