@@ -13,18 +13,23 @@ export function renderAIChatWidget(container) {
 
   const widgetHTML = `
     <!-- Floating Action Button -->
-    <div id="ai-chat-launcher" class="fixed bottom-6 right-6 z-50 flex items-center gap-2 group cursor-pointer">
-      <div class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#10182B] border border-teal-500/30 text-teal-300 text-xs font-semibold shadow-lg shadow-teal-500/10 group-hover:border-teal-400 transition-all">
+    <div 
+      id="ai-chat-launcher" 
+      class="fixed bottom-6 right-6 flex items-center gap-2 group cursor-pointer"
+      style="z-index: 99999;"
+    >
+      <div class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#10182B] border border-teal-500/40 text-teal-300 text-xs font-semibold shadow-lg shadow-teal-500/20 group-hover:border-teal-400 group-hover:scale-105 transition-all select-none">
         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
         <span>${isHi ? "AI साथी से पूछें" : "Ask Saathi AI"}</span>
       </div>
       <button 
         id="ai-chat-toggle-btn"
-        class="w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-gradient-to-tr from-emerald-600 via-teal-500 to-cyan-500 hover:from-emerald-500 hover:to-cyan-400 text-slate-950 flex items-center justify-center shadow-xl shadow-teal-500/25 transition-transform hover:scale-105 active:scale-95"
+        type="button"
+        class="w-14 h-14 rounded-full bg-gradient-to-tr from-emerald-600 via-teal-500 to-cyan-500 hover:from-emerald-500 hover:to-cyan-400 text-slate-950 flex items-center justify-center shadow-2xl shadow-teal-500/40 transition-transform hover:scale-105 active:scale-95 cursor-pointer border border-emerald-400/30"
         aria-label="Toggle AI CyberGuard Chatbot"
       >
         <svg class="w-6 h-6 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
         </svg>
       </button>
     </div>
@@ -32,7 +37,8 @@ export function renderAIChatWidget(container) {
     <!-- Floating Chat Window -->
     <div 
       id="ai-chat-window" 
-      class="hidden fixed bottom-22 right-4 sm:right-6 w-96 max-w-[calc(100vw-32px)] h-[540px] max-h-[80vh] flex-col rounded-2xl bg-[#0D1527] border border-[rgba(255,255,255,0.12)] shadow-2xl backdrop-blur-xl z-50 overflow-hidden animate-fade-in"
+      class="fixed flex-col rounded-2xl bg-[#0D1527] border border-teal-500/30 shadow-2xl backdrop-blur-xl overflow-hidden animate-fade-in"
+      style="display: none; bottom: 85px; right: 20px; width: 380px; max-width: calc(100vw - 32px); height: 530px; max-height: 80vh; z-index: 99999;"
     >
       <!-- Chat Header -->
       <div class="px-4 py-3 bg-[#10182B] border-b border-[rgba(255,255,255,0.08)] flex items-center justify-between">
@@ -61,7 +67,7 @@ export function renderAIChatWidget(container) {
       </div>
 
       <!-- Quick AI Key Setup Tray (Collapsible) -->
-      <div id="ai-config-tray" class="hidden p-3 bg-[#080C15] border-b border-[rgba(255,255,255,0.08)] text-xs flex flex-col gap-2 animate-fade-in">
+      <div id="ai-config-tray" style="display: none;" class="p-3 bg-[#080C15] border-b border-[rgba(255,255,255,0.08)] text-xs flex-col gap-2 animate-fade-in">
         <div class="flex items-center justify-between">
           <span class="font-bold text-teal-300 text-[11px]">Free AI Provider Setup</span>
           <a href="https://console.groq.com/keys" target="_blank" class="text-[10px] text-emerald-400 underline hover:text-emerald-300">Get Free Groq Key</a>
@@ -158,29 +164,40 @@ export function renderAIChatWidget(container) {
   }
   updateBadge();
 
-  // Toggle open/close
-  launcher.addEventListener("click", () => {
+  // Toggle open/close function
+  const toggleChat = (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     isOpen = !isOpen;
     if (isOpen) {
-      chatWindow.classList.remove("hidden");
-      chatWindow.classList.add("flex");
-      inputEl.focus();
+      chatWindow.style.display = "flex";
+      setTimeout(() => {
+        if (inputEl) inputEl.focus();
+      }, 50);
     } else {
-      chatWindow.classList.add("hidden");
-      chatWindow.classList.remove("flex");
+      chatWindow.style.display = "none";
     }
-  });
+  };
 
-  closeBtn.addEventListener("click", () => {
+  const toggleBtn = wrapper.querySelector("#ai-chat-toggle-btn");
+  if (launcher) launcher.addEventListener("click", toggleChat);
+  if (toggleBtn) toggleBtn.addEventListener("click", toggleChat);
+
+  closeBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     isOpen = false;
-    chatWindow.classList.add("hidden");
-    chatWindow.classList.remove("flex");
+    chatWindow.style.display = "none";
   });
 
   // Toggle Config Tray
-  configBtn.addEventListener("click", () => {
+  configBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     isConfigOpen = !isConfigOpen;
-    configTray.classList.toggle("hidden", !isConfigOpen);
+    configTray.style.display = isConfigOpen ? "flex" : "none";
   });
 
   // Save AI Key
@@ -197,7 +214,7 @@ export function renderAIChatWidget(container) {
     try {
       const res = await api.saveAIConfig(prov, key);
       showToast(res.message, "success");
-      configTray.classList.add("hidden");
+      configTray.style.display = "none";
       isConfigOpen = false;
       updateBadge();
     } catch (err) {
